@@ -1,0 +1,838 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS进阶," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="了解了 block的实现，我们接着来聊聊 block 和变量的内存管理。本文将介绍可写变量、block的内存段、__block变量的内存段等内容，看完本文会对 block 和变量的内存管理有更加清晰的认识。">
+<meta name="keywords" content="iOS进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(转)block进阶2--block和变量内存管理">
+<meta property="og:url" content="/2016/06/25/2016/转-block进阶2-block和变量内存管理/index.html">
+<meta property="og:site_name" content="Hanson的博客">
+<meta property="og:description" content="了解了 block的实现，我们接着来聊聊 block 和变量的内存管理。本文将介绍可写变量、block的内存段、__block变量的内存段等内容，看完本文会对 block 和变量的内存管理有更加清晰的认识。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i4.piimg.com/567571/edba9eda9e760d13.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/ab4b00f9b39f146a.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/eb42780701d9dfdd.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/a4cf5bfee64c0faf.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/82a9a9d7492f431e.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/c6c5e220ca09511e.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/5e7b1f767a1526f8.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/f6c64412dfaed0f4.png">
+<meta property="og:image" content="http://i4.piimg.com/567571/ae21fcf6a92ab9ee.png">
+<meta property="og:updated_time" content="2017-06-05T10:12:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(转)block进阶2--block和变量内存管理">
+<meta name="twitter:description" content="了解了 block的实现，我们接着来聊聊 block 和变量的内存管理。本文将介绍可写变量、block的内存段、__block变量的内存段等内容，看完本文会对 block 和变量的内存管理有更加清晰的认识。">
+<meta name="twitter:image" content="http://i4.piimg.com/567571/edba9eda9e760d13.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="/2016/06/25/2016/转-block进阶2-block和变量内存管理/"/>
+
+
+  <title> (转)block进阶2--block和变量内存管理 | Hanson的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hanson的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                (转)block进阶2--block和变量内存管理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-25T14:15:48+08:00" content="2016-06-25">
+              2016-06-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>了解了 block的实现，我们接着来聊聊 block 和变量的内存管理。本文将介绍可写变量、block的内存段、__block变量的内存段等内容，看完本文会对 block 和变量的内存管理有更加清晰的认识。<br><a id="more"></a><br>上篇文章举了个例子，在 block 内获取了一个外部的局部变量，可以读取，但无法进行写入的修改操作。在 C 语言中有三种类型的变量，可在 block 内进行读写操作</p>
+<blockquote>
+<ul>
+<li>全局变量</li>
+<li>全局静态变量</li>
+<li>静态变量</li>
+</ul>
+</blockquote>
+<p>全局变量 和 全局静态变量 由于作用域在全局，所以在 block 内访问和读写这两类变量和普通函数没什么区别，而 静态变量 作用域在 block 之外，是怎么对它进行读写呢？通过 clang 工具，我们发现原来 静态变量 是通过指针传递，将变量传递到 block 内，所以可以修改变量值。而上篇文章中的外部变量是通过值传递，自然没法对获取到的外部变量进行修改。由此，可以给我们一个启示，当我们需要修改外部变量时，是不是也可以像 静态变量 这样通过指针来修改外部变量的值呢？</p>
+<p>Apple 早就为我们准备了这么一个东西 —— “__block”</p>
+<h2 id="block-说明符"><a href="#block-说明符" class="headerlink" title="__block 说明符"></a>__block 说明符</h2><p>按照惯例，重写一小段代码看看 __block 的真身<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/************* 使用 __block 的源码 *************/</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    __block int intValue = 0;</div><div class="line">    void (^blk)(void) = ^&#123;</div><div class="line">        intValue = 1;</div><div class="line">    &#125;;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">/************* 使用 clang 翻译后如下 *************/</div><div class="line">struct __block_impl</div><div class="line">&#123;</div><div class="line">    void *isa;</div><div class="line">    int Flags;</div><div class="line">    int Reserved;</div><div class="line">    void *FuncPtr;</div><div class="line">&#125;;</div><div class="line">struct __Block_byref_intValue_0</div><div class="line">&#123;</div><div class="line">    void *__isa;</div><div class="line">    __Block_byref_intValue_0 *__forwarding;</div><div class="line">    int __flags;</div><div class="line">    int __size;</div><div class="line">    int intValue;</div><div class="line">&#125;;</div><div class="line">struct __main_block_impl_0</div><div class="line">&#123;</div><div class="line">    struct __block_impl impl;</div><div class="line">    struct __main_block_desc_0* Desc;</div><div class="line">    __Block_byref_intValue_0 *intValue; // by ref</div><div class="line">    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_intValue_0 *_intValue, int flags=0) : intValue(_intValue-&gt;__forwarding)</div><div class="line">    &#123;</div><div class="line">        impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">        impl.Flags = flags;</div><div class="line">        impl.FuncPtr = fp;</div><div class="line">        Desc = desc;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself)</div><div class="line">&#123;</div><div class="line">    __Block_byref_intValue_0 *intValue = __cself-&gt;intValue; // bound by ref</div><div class="line">    (intValue-&gt;__forwarding-&gt;intValue) = 1;</div><div class="line">&#125;</div><div class="line">static void __main_block_copy_0(struct __main_block_impl_0 *dst, struct __main_block_impl_0 *src)</div><div class="line">&#123;</div><div class="line">    _Block_object_assign((void*)&amp;dst-&gt;intValue, (void*)src-&gt;intValue, 8/*BLOCK_FIELD_IS_BYREF*/);</div><div class="line">&#125;</div><div class="line">static void __main_block_dispose_0(struct __main_block_impl_0 *src)</div><div class="line">&#123;</div><div class="line">    _Block_object_dispose((void*)src-&gt;intValue, 8/*BLOCK_FIELD_IS_BYREF*/);</div><div class="line">&#125;</div><div class="line">static struct __main_block_desc_0</div><div class="line">&#123;</div><div class="line">    size_t reserved;</div><div class="line">    size_t Block_size;</div><div class="line">    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);</div><div class="line">    void (*dispose)(struct __main_block_impl_0*);</div><div class="line">&#125; __main_block_desc_0_DATA = &#123;  0, </div><div class="line">                                sizeof(struct __main_block_impl_0), </div><div class="line">                                __main_block_copy_0, </div><div class="line">                                __main_block_dispose_0</div><div class="line">                             &#125;;</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    __attribute__((__blocks__(byref))) __Block_byref_intValue_0 \</div><div class="line">    intValue = </div><div class="line">    &#123;</div><div class="line">        (void*)0,</div><div class="line">        (__Block_byref_intValue_0 *)&amp;intValue, </div><div class="line">        0, </div><div class="line">        sizeof(__Block_byref_intValue_0), </div><div class="line">        0</div><div class="line">    &#125;;</div><div class="line">    void (*blk)(void) = (void (*)()) &amp;__main_block_impl_0   \</div><div class="line">                (</div><div class="line">                    (void *)__main_block_func_0,            \</div><div class="line">                    &amp;__main_block_desc_0_DATA,              \</div><div class="line">                    (__Block_byref_intValue_0 *)&amp;intValue,  \</div><div class="line">                    570425344                               \</div><div class="line">                );</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在加了 __block 之后，代码量增加了不少，仔细查看，其实只是比原来多了</p>
+<blockquote>
+<p>-<strong>Block_byref_intValue_0 结构体：用于封装 </strong>block 修饰的外部变量。</p>
+<ul>
+<li>_Block_object_assign 函数：当 block 从栈拷贝到堆时，调用此函数。</li>
+<li>_Block_object_dispose 函数：当 block 从堆内存释放时，调用此函数。</li>
+</ul>
+</blockquote>
+<p>OC源码中的 <strong>block intValue 翻译后变成了 </strong>Block_byref_intValue_0 结构体指针变量 intValue，通过指针传递到 block 内，这与前面说的 静态变量 的指针传递是一致的。除此之外，整体的执行流程与不加 <strong>block 基本一致，不再赘述。但 </strong>Block_byref_intValue_0 这个结构体需特别注意下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 存储 __block 外部变量的结构体</div><div class="line">struct __Block_byref_intValue_0</div><div class="line">&#123;</div><div class="line">    void *__isa; // 对象指针</div><div class="line">    __Block_byref_intValue_0 *__forwarding; // 指向自己的指针</div><div class="line">    int __flags; // 标志位变量</div><div class="line">    int __size; // 结构体大小</div><div class="line">    int intValue; // 外部变量</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><img src="http://i4.piimg.com/567571/edba9eda9e760d13.png" alt=""><br>在已有结构体指针指向 <code>__Block_byref_intValue_0</code> 时，结构体里面还多了个 __forwarding 指向自己的指针变量，难道不显得多余吗？一点也不，本文后面会阐述。</p>
+<h2 id="block-的内存管理"><a href="#block-的内存管理" class="headerlink" title="block 的内存管理"></a>block 的内存管理</h2><p>在前文中，已经提到了 block 的三种类型 <code>NSConcreteGlobalBlock</code>、<code>_NSConcreteStackBlock</code>、<code>_NSConcreteMallocBlock</code>，见名知意，可以看出三种 block 在内存中的分布<br><img src="http://i4.piimg.com/567571/ab4b00f9b39f146a.png" alt=""></p>
+<h3 id="NSConcreteGlobalBlock"><a href="#NSConcreteGlobalBlock" class="headerlink" title="_NSConcreteGlobalBlock"></a>_NSConcreteGlobalBlock</h3><blockquote>
+<ul>
+<li>1、当 block 字面量写在全局作用域时，即为 global block； </li>
+<li>2、当 block 字面量不获取任何外部变量时，即为 global block；</li>
+</ul>
+</blockquote>
+<p>除了上述描述的两种情况，其他形式创建的 block 均为 stack block。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 下面 block 虽然定义在 for 循环内，但符合第二种情况，所以也是 global block</div><div class="line">typedef int (^blk_t)(int);</div><div class="line">for (int rate = 0; rate &lt; 10; ++rate) </div><div class="line">&#123;</div><div class="line">    blk_t blk = ^(int count)&#123;return rate * count;&#125;; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>_NSConcreteGlobalBlock 类型的 block 处于内存的 ROData 段，此处没有局部变量的骚扰，运行不依赖上下文，内存管理也简单的多。</p>
+<h3 id="NSConcreteStackBlock"><a href="#NSConcreteStackBlock" class="headerlink" title="_NSConcreteStackBlock"></a>_NSConcreteStackBlock</h3><p>_NSConcreteStackBlock 类型的 block 处于内存的栈区。global block 由于处在 data 段，可以通过指针安全访问，但 stack block 处在内存栈区，如果其变量作用域结束，这个 block 就被废弃，block 上的 __block 变量也同样会被废弃。<br><img src="http://i4.piimg.com/567571/eb42780701d9dfdd.png" alt=""></p>
+<p>为了解决这个问题，block 提供了 copy 的功能，将 block 和 __block 变量从栈拷贝到堆，就是下面要说的 _NSConcreteMallocBlock。</p>
+<h3 id="NSConcreteMallocBlock"><a href="#NSConcreteMallocBlock" class="headerlink" title="_NSConcreteMallocBlock"></a>_NSConcreteMallocBlock</h3><p>当 block 从栈拷贝到堆后，当栈上变量作用域结束时，仍然可以继续使用 block<br><img src="http://i4.piimg.com/567571/a4cf5bfee64c0faf.png" alt=""><br>此时，堆上的 block 类型为 _NSConcreteMallocBlock，所以会将 _NSConcreteMallocBlock 写入 isa</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">impl.isa = &amp;_NSConcreteMallocBlock;</div></pre></td></tr></table></figure>
+<p>如果你细心的观察上面的转换后的代码，会发现访问结构体 <strong>Block_byref_intValue_0 内部的成员变量都是通过访问 </strong>forwarding 指针完成的。为了保证能正确访问栈上的 <strong>block 变量，进行 copy 操作时，会将栈上的 </strong>forwarding 指针指向了堆上的 block 结构体实例。</p>
+<h2 id="block-的自动拷贝和手动拷贝"><a href="#block-的自动拷贝和手动拷贝" class="headerlink" title="block 的自动拷贝和手动拷贝"></a>block 的自动拷贝和手动拷贝</h2><p>在开启 ARC 时，大部分情况下编译器通常会将创建在栈上的 block 自动拷贝到堆上，只有当</p>
+<blockquote>
+<p>block 作为方法或函数的参数传递时，编译器不会自动调用 copy 方法；</p>
+</blockquote>
+<p>但方法/函数在内部已经实现了一份拷贝了 block 参数的代码，或者如果编译器自动拷贝，那么调用者就不需再手动拷贝，比如：</p>
+<blockquote>
+<ul>
+<li>当 block 作为函数返回值返回时，编译器自动将 block 作为 _Block_copy 函数，效果等同于 block 直接调用 copy 方法；</li>
+<li>当 block 被赋值给 __strong id 类型的对象或 block 的成员变量时，编译器自动将 block 作为 _Block_copy 函数，效果等同于 block 直接调用 copy 方法；</li>
+<li>当 block 作为参数被传入方法名带有 usingBlock 的 Cocoa Framework 方法或 GCD 的 API 时。这些方法会在内部对传递进来的 block 调用 copy 或 _Block_copy 进行拷贝;</li>
+</ul>
+</blockquote>
+<p>让我们看个 block 自动拷贝的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/************ ARC下编译器自动拷贝block ************/</div><div class="line">typedef int (^blk_t)(int);</div><div class="line">blk_t func(int rate)</div><div class="line">&#123;</div><div class="line">    return ^(int count)&#123;return rate * count;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的 block 获取了外部变量，所以是创建在栈上，当 func 函数返回给调用者时，脱离了局部变量 rate 的作用范围，如果调用者使用这个 block 就会出问题。那 ARC 开启的情况呢？运行这个 block 一切正常。和我们的预期结果不一样，ARC 到底给 block 施了什么魔法？我们将上面的代码翻译下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">blk_t func(int rate)</div><div class="line">&#123;</div><div class="line">    blk_t tmp = &amp;__func_block_impl_0(__func_block_func_0, &amp;__func_block_desc_0_DATA, rate);</div><div class="line">    tmp = objc_retainBlock(tmp);</div><div class="line">    return objc_autoreleaseReturnValue(tmp); </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>转换后出现两个新函数 objc_retainBlock、objc_autoreleaseReturnValue。如果你看过runtime 库（点此下载） ，在 runtime/objc-arr.mm 文件中就有这两个函数的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/*********** objc_retainBlock() 的实现 ***********/</div><div class="line">id objc_retainBlock(id x) </div><div class="line">&#123;</div><div class="line">#if ARR_LOGGING</div><div class="line">    objc_arr_log(&quot;objc_retain_block&quot;, x);</div><div class="line">    ++CompilerGenerated.blockCopies;</div><div class="line">#endif</div><div class="line">    return (id)_Block_copy(x);</div><div class="line">&#125;</div><div class="line">// Create a heap based copy of a Block or simply add a reference to an existing one.</div><div class="line">// This must be paired with Block_release to recover memory, even when running</div><div class="line">// under Objective-C Garbage Collection.</div><div class="line">BLOCK_EXPORT void *_Block_copy(const void *aBlock)</div><div class="line">    __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_3_2);</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">    /*********** objc_autoreleaseReturnValue() 的实现 ***********/</div><div class="line">id objc_autoreleaseReturnValue(id obj)</div><div class="line">&#123;</div><div class="line">#if SUPPORT_RETURN_AUTORELEASE</div><div class="line">    assert(_pthread_getspecific_direct(AUTORELEASE_POOL_RECLAIM_KEY) == NULL);</div><div class="line">    if (callerAcceptsFastAutorelease(__builtin_return_address(0))) &#123;</div><div class="line">        _pthread_setspecific_direct(AUTORELEASE_POOL_RECLAIM_KEY, obj);</div><div class="line">        return obj;</div><div class="line">    &#125;</div><div class="line">#endif</div><div class="line">    return objc_autorelease(obj);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过上面的代码和注释，意思就很明显了，由于 block 字面量是创建在栈内存，通过 objc_retainBlock() 函数拷贝到堆内存，让 tmp 重新指向堆上的 block，然后将 tmp 所指的堆上的 block 作为一个 Objective-C 对象放入 autoreleasepool 里面，从而保证了返回后的 block 仍然可以正确执行。</p>
+<p>看完了 block 的自动拷贝，那么看看在 ARC 下需要手动拷贝 block 的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/************ ARC下编译器手动拷贝block ************/</div><div class="line">- (id)getBlockArray</div><div class="line">&#123;</div><div class="line">    int val = 10;</div><div class="line">    return [[NSArray alloc] initWithObjects: </div><div class="line">                            ^&#123;NSLog(@&quot;blk0:%d&quot;, val);&#125;, </div><div class="line">                            ^&#123;NSLog(@&quot;blk1:%d&quot;, val);&#125;, nil];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一个例子就了然，返回的数组里面的 block 是不可用的，需要再手动拷贝一次才可以，这个较为简单，就不作过多解释。</p>
+<p>关于 block 的拷贝操作可以用一张表总结下</p>
+<p><img src="http://i4.piimg.com/567571/82a9a9d7492f431e.png" alt=""></p>
+<p>block 拷贝的讲解就到此为止，有兴趣可以了解下 block 的多次拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">block的多次拷贝：下面的例子在 ARC 下并不会产生内存泄露哦</div><div class="line"></div><div class="line">// block 多次拷贝源码</div><div class="line">blk = [[[[blk copy] copy] copy] copy]; </div><div class="line">// 翻译后的代码</div><div class="line">&#123;</div><div class="line">    blk_t tmp = [blk copy];</div><div class="line">    blk = tmp; </div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">    blk_t tmp = [blk copy];</div><div class="line">    blk = tmp; </div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">    blk_t tmp = [blk copy];</div><div class="line">    blk = tmp; </div><div class="line">&#125;</div><div class="line">&#123;</div><div class="line">    blk_t tmp = [blk copy];</div><div class="line">    blk = tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="block-变量的内存管理"><a href="#block-变量的内存管理" class="headerlink" title="__block 变量的内存管理"></a>__block 变量的内存管理</h2><p>上面啰嗦一堆，这小节主要用图说话，必要时加文字说明。</p>
+<ul>
+<li>当 block 从栈内存被拷贝到堆内存时，<strong>block 变量的变化如下图。需要说明的是，当栈上的 block 被拷贝到堆上，堆上的 block 再次被拷贝时，对 </strong>block 变量已经没有影响了。</li>
+</ul>
+<p><img src="http://i4.piimg.com/567571/c6c5e220ca09511e.png" alt=""></p>
+<ul>
+<li><p>当多个 block 获取同一个 __block 变量，block 从栈被拷贝到堆时<br><img src="http://i4.piimg.com/567571/5e7b1f767a1526f8.png" alt=""></p>
+</li>
+<li><p>当 block 被废弃时，__block 变量被释放<br><img src="http://i4.piimg.com/567571/f6c64412dfaed0f4.png" alt=""></p>
+</li>
+<li><p>__forwarding </p>
+</li>
+</ul>
+<p>前文已经说过，当 block 从栈被拷贝到堆时，<strong>forwarding 指针变量也会指向堆区的结构体。但是为什么要这么做呢？为什么要让原本指向栈区的结构体的指针，去指向堆区的结构体呢？看起来匪夷所思，实则原因很简单，要从 </strong>forwarding 产生的缘由说起。想想起初为什么要给 block 添加 copy 的功能，就是因为 block 获取了局部变量，当要在其他地方（超出局部变量作用范围）使用这个 block 的时候，由于访问局部变量异常，导致程序崩溃。为了解决这个问题，就给 block 添加了 copy 功能。在将 block 拷贝到堆上的同时，将 <strong>forwarding 指针指向堆上结构体。后面如果要想使用 </strong>block 变量，只要通过 __forwarding 访问堆上变量，就不会出现程序崩溃了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/*************** __forwarding 的作用 ***************/</div><div class="line">//猜猜下面代码的打印结果？</div><div class="line">&#123;</div><div class="line">    __block int val = 0;</div><div class="line">    void (^blk)(void) = [^&#123;++val;&#125; copy];</div><div class="line">    ++val;</div><div class="line">    blk();</div><div class="line">    NSLog(@&quot;%d&quot;, val);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一定有很多人会猜 1，其实打印 2。原因很简单，当栈上的 block 被拷贝到堆上时，栈上的 <strong>forwarding 也会指向堆上的 </strong>block 变量的结构体。</p>
+<p>上面的代码中 ^{++val;} 和 ++val; 都会被转换成 ++(val.__forwarding-&gt;val);，堆上的 val 被加了两次，最后打印堆上的 val 为 2。</p>
+<p><img src="http://i4.piimg.com/567571/ae21fcf6a92ab9ee.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS进阶/" rel="tag">#iOS进阶</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/16/2017/Python基础知识-文件操作/" rel="next" title="Python基础知识-文件操作">
+                <i class="fa fa-chevron-left"></i> Python基础知识-文件操作
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/25/2016/转-block进阶3-block和对象的内存管理/" rel="prev" title="(转)block进阶3--block和对象的内存管理">
+                (转)block进阶3--block和对象的内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hanson" />
+          <p class="site-author-name" itemprop="name">Hanson</p>
+          <p class="site-description motion-element" itemprop="description">iOS开发者，python/js爱好者，现在就职业京东金融</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#block-说明符"><span class="nav-number">1.</span> <span class="nav-text">__block 说明符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block-的内存管理"><span class="nav-number">2.</span> <span class="nav-text">block 的内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSConcreteGlobalBlock"><span class="nav-number">2.1.</span> <span class="nav-text">_NSConcreteGlobalBlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSConcreteStackBlock"><span class="nav-number">2.2.</span> <span class="nav-text">_NSConcreteStackBlock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSConcreteMallocBlock"><span class="nav-number">2.3.</span> <span class="nav-text">_NSConcreteMallocBlock</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block-的自动拷贝和手动拷贝"><span class="nav-number">3.</span> <span class="nav-text">block 的自动拷贝和手动拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block-变量的内存管理"><span class="nav-number">4.</span> <span class="nav-text">__block 变量的内存管理</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hanson</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

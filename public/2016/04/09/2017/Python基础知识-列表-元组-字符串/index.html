@@ -1,0 +1,818 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="列表和元组在python中我们有两种很重要的数据结构，分别为序列和映射，对应到OC中就是数组和字典，序列又分为列表和元组，他们的区别在于，列表可修改，元组不能，列表用方括号[]，而元组用小括号（）">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础知识-列表&#x2F;元组&#x2F;字符串">
+<meta property="og:url" content="/2016/04/09/2017/Python基础知识-列表-元组-字符串/index.html">
+<meta property="og:site_name" content="Hanson的博客">
+<meta property="og:description" content="列表和元组在python中我们有两种很重要的数据结构，分别为序列和映射，对应到OC中就是数组和字典，序列又分为列表和元组，他们的区别在于，列表可修改，元组不能，列表用方括号[]，而元组用小括号（）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-08T01:46:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基础知识-列表&#x2F;元组&#x2F;字符串">
+<meta name="twitter:description" content="列表和元组在python中我们有两种很重要的数据结构，分别为序列和映射，对应到OC中就是数组和字典，序列又分为列表和元组，他们的区别在于，列表可修改，元组不能，列表用方括号[]，而元组用小括号（）">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="/2016/04/09/2017/Python基础知识-列表-元组-字符串/"/>
+
+
+  <title> Python基础知识-列表/元组/字符串 | Hanson的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hanson的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python基础知识-列表/元组/字符串
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-09T10:53:55+08:00" content="2016-04-09">
+              2016-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="列表和元组"><a href="#列表和元组" class="headerlink" title="列表和元组"></a>列表和元组</h2><p>在python中我们有两种很重要的数据结构，分别为序列和映射，对应到OC中就是数组和字典，序列又分为列表和元组，他们的区别在于，列表可修改，元组不能，列表用方括号[]，而元组用小括号（）<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">list = [&apos;hanshenghui&apos;,&apos;xiaoming&apos;]</div><div class="line">list1 = (&apos;hanshenghui&apos;,&apos;xiaoming&apos;)</div></pre></td></tr></table></figure></p>
+<!--more-->
+<h3 id="序列通用操作"><a href="#序列通用操作" class="headerlink" title="序列通用操作"></a>序列通用操作</h3><p>列表和元组都能做的操作</p>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; greeting = &apos;hello&apos;</div><div class="line">&gt;&gt;&gt; greeting[1]</div><div class="line">&apos;e&apos;</div><div class="line">&gt;&gt;&gt; greeting[2]</div><div class="line">&apos;l&apos;</div><div class="line">&gt;&gt;&gt; </div><div class="line"></div><div class="line">&gt;&gt;&gt; greeting1 = (&apos;h&apos;,&apos;e&apos;,&apos;l&apos;)</div><div class="line">&gt;&gt;&gt; greeting1[0]</div><div class="line">&apos;h&apos;</div><div class="line">&gt;&gt;&gt; greeting1[1]</div><div class="line">&apos;e&apos;</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<p>字符串可以理解为由一个个的字符拼成的列表</p>
+<h4 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h4><p>我们不但可以用一个索引来获取某一个元素，也可以获取某个范围的元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numbers = [1,2,3,4,5,6,7,8,9,0]</div><div class="line">&gt;&gt;&gt; numbers[0:2]</div><div class="line">[1, 2]</div></pre></td></tr></table></figure></p>
+<p>我们可以看到，左边的边界包含在其中，而右边的边界是不包含在其中的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numbers[-1:2]</div><div class="line">[]</div><div class="line">&gt;&gt;&gt; numbers[-1:-3]</div><div class="line">[]</div><div class="line">&gt;&gt;&gt; numbers[-3:-1]</div><div class="line">[8, 9]</div><div class="line">&gt;&gt;&gt; </div><div class="line">&gt;&gt;&gt; numbers[-3:]</div><div class="line">[8, 9, 0]</div></pre></td></tr></table></figure></p>
+<p>我们还可以用倒序来取元素，但是切记一定要左边小，右边的大，只标记一个就会从这个开始取所有，或者到这个为止</p>
+<p>还可以给一个步长<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; numbers[::3]</div><div class="line">[1, 4, 7, 0]</div></pre></td></tr></table></figure></p>
+<h4 id="相加"><a href="#相加" class="headerlink" title="相加"></a>相加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; item1 = [1,2,3]</div><div class="line">&gt;&gt;&gt; item2 = [4,5,6]</div><div class="line">&gt;&gt;&gt; item1 + item2</div><div class="line">[1, 2, 3, 4, 5, 6]</div><div class="line"></div><div class="line">&gt;&gt;&gt; string1 = &apos;hansheng&apos;</div><div class="line">&gt;&gt;&gt; string2 = &apos;hui&apos;</div><div class="line">&gt;&gt;&gt; string1 + string2</div><div class="line">&apos;hanshenghui&apos;</div><div class="line"></div><div class="line">&gt;&gt;&gt; string1 + item1</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">TypeError: cannot concatenate &apos;str&apos; and &apos;list&apos; objects</div></pre></td></tr></table></figure>
+<p>但是只有同种类型才能相加</p>
+<h4 id="乘法"><a href="#乘法" class="headerlink" title="乘法"></a>乘法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;python&apos; * 5</div><div class="line">&apos;pythonpythonpythonpythonpython&apos;</div><div class="line">&gt;&gt;&gt; [10,11] * 3</div><div class="line">[10, 11, 10, 11, 10, 11]</div></pre></td></tr></table></figure>
+<h4 id="成员资格"><a href="#成员资格" class="headerlink" title="成员资格"></a>成员资格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; han = &apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; &apos;shenghui&apos; in han</div><div class="line">True</div><div class="line">&gt;&gt;&gt; &apos;wahha&apos; in han</div><div class="line">False</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h4 id="长度，最大值，最小值"><a href="#长度，最大值，最小值" class="headerlink" title="长度，最大值，最小值"></a>长度，最大值，最小值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">han = &apos;hanshenghui&apos;</div><div class="line">item1 = [1,2,3]</div><div class="line"></div><div class="line">&gt;&gt;&gt; len(han)</div><div class="line">11</div><div class="line">&gt;&gt;&gt; max(han)</div><div class="line">&apos;u&apos;</div><div class="line">&gt;&gt;&gt; min(han)</div><div class="line">&apos;a&apos;</div><div class="line">&gt;&gt;&gt; len(item1)</div><div class="line">3</div><div class="line">&gt;&gt;&gt; max(item1)</div><div class="line">3</div><div class="line">&gt;&gt;&gt; min(item1)</div><div class="line">1</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h3 id="列表操作"><a href="#列表操作" class="headerlink" title="列表操作"></a>列表操作</h3><h4 id="list与join"><a href="#list与join" class="headerlink" title="list与join"></a>list与join</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = list(&apos;hanshenghui&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;, &apos;h&apos;, &apos;u&apos;, &apos;i&apos;]</div><div class="line">&gt;&gt;&gt; len(name)</div><div class="line">11</div><div class="line">&gt;&gt;&gt; &apos;&apos;.join(name)</div><div class="line">&apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; &apos;a&apos;.join(name)</div><div class="line">&apos;haaanasahaeanagahauai&apos;</div></pre></td></tr></table></figure>
+<h4 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h4><p>更改某个元素的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name[0] = &apos;i&apos;</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;i&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;, &apos;h&apos;, &apos;u&apos;, &apos;i&apos;]</div></pre></td></tr></table></figure></p>
+<h4 id="删除del"><a href="#删除del" class="headerlink" title="删除del"></a>删除del</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;han&apos;</div><div class="line">&gt;&gt;&gt; name</div><div class="line">&apos;han&apos;</div><div class="line">&gt;&gt;&gt; name = list(name)</div><div class="line">&gt;&gt;&gt; del name[0]</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;a&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h4 id="分片赋值"><a href="#分片赋值" class="headerlink" title="分片赋值"></a>分片赋值</h4><p>这是异常强大的一个特性，可以用来插入元素，更改元素，甚至删除元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = list(&apos;han&apos;)</div><div class="line">&gt;&gt;&gt; name[1:] = list(&apos;python&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;p&apos;, &apos;y&apos;, &apos;t&apos;, &apos;h&apos;, &apos;o&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt; name[2:]=[]</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;p&apos;]</div><div class="line">&gt;&gt;&gt; name[1:1] = list(&apos;wahha&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;w&apos;, &apos;a&apos;, &apos;h&apos;, &apos;h&apos;, &apos;a&apos;, &apos;p&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="append追加"><a href="#append追加" class="headerlink" title="append追加"></a>append追加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = list(&apos;han&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt; name.append(&apos;shenghui&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;shenghui&apos;]</div><div class="line">&gt;&gt;&gt; &apos;&apos;.join(name)</div><div class="line">&apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h4 id="count统计出现的次数"><a href="#count统计出现的次数" class="headerlink" title="count统计出现的次数"></a>count统计出现的次数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; name.count(&apos;h&apos;)</div><div class="line">3</div><div class="line">&gt;&gt;&gt; name.count(&apos;n&apos;)</div><div class="line">2</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h4 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h4><p>一个列表后追加一个新的列表，同加法作用一致<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt; name1 = list(&apos;sheng&apos;)</div><div class="line">&gt;&gt;&gt; name1</div><div class="line">[&apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt; name.extend(name1)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="index"><a href="#index" class="headerlink" title="index"></a>index</h4><p>找出列表中某个项的第一个匹配索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt; name.index(&apos;h&apos;)</div><div class="line">0</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt; name.insert(0,&apos;wahha&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;wahha&apos;, &apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h4 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h4><p>移除某个值并且将该值返回，需要提供索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;wahha&apos;, &apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;]</div><div class="line">&gt;&gt;&gt; name.pop()</div><div class="line">&apos;g&apos;</div><div class="line">&gt;&gt;&gt; name.pop()</div><div class="line">&apos;n&apos;</div><div class="line">&gt;&gt;&gt; name.pop(0)</div><div class="line">&apos;wahha&apos;</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h4><p>移除某个匹配项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;]</div><div class="line">&gt;&gt;&gt; name.remove(&apos;s&apos;)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;h&apos;, &apos;e&apos;]</div><div class="line">&gt;&gt;&gt; name.remove(&apos;s&apos;)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">ValueError: list.remove(x): x not in list</div></pre></td></tr></table></figure></p>
+<p>如果该值不存在，那么就会报错</p>
+<h4 id="reverse"><a href="#reverse" class="headerlink" title="reverse"></a>reverse</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;h&apos;, &apos;e&apos;]</div><div class="line">&gt;&gt;&gt; name.reverse()</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;e&apos;, &apos;h&apos;, &apos;n&apos;, &apos;a&apos;, &apos;h&apos;]</div></pre></td></tr></table></figure>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>改变原来的列表，返回一个空值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;e&apos;, &apos;h&apos;, &apos;n&apos;, &apos;a&apos;, &apos;h&apos;]</div><div class="line">&gt;&gt;&gt; name.sort()</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;a&apos;, &apos;e&apos;, &apos;h&apos;, &apos;h&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<p>需要返回值，sorted<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = list(&apos;hna&apos;)</div><div class="line">&gt;&gt;&gt; name1 = sorted(name)</div><div class="line">&gt;&gt;&gt; name1</div><div class="line">[&apos;a&apos;, &apos;h&apos;, &apos;n&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="高级排序"><a href="#高级排序" class="headerlink" title="高级排序"></a>高级排序</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = list(&apos;hanshenghui&apos;)</div><div class="line">&gt;&gt;&gt; name.sort(reverse = True)</div><div class="line">&gt;&gt;&gt; name</div><div class="line">[&apos;u&apos;, &apos;s&apos;, &apos;n&apos;, &apos;n&apos;, &apos;i&apos;, &apos;h&apos;, &apos;h&apos;, &apos;h&apos;, &apos;g&apos;, &apos;e&apos;, &apos;a&apos;]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; python = &apos;%s is a %s&apos; </div><div class="line">&gt;&gt;&gt; value = (&apos;xiaohong&apos;,&apos;dog&apos;)</div><div class="line">&gt;&gt;&gt; print python % value</div><div class="line">xiaohong is a dog</div></pre></td></tr></table></figure>
+<blockquote>
+<p>符号说明:<code>s</code>代表字符串，后边的对象将以str转译，<code>%</code>代表占位，只有元组才会被分开解释，如果是一个列表，那么只能被解释为一个对象，这点要特别注意。d代表整型，f代表浮点数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; python = &apos;%10.1fha&apos;</div><div class="line">&gt;&gt;&gt; print python % 10</div><div class="line">      10.0ha</div></pre></td></tr></table></figure>
+<p>f前边的小数点后的数字代表，小数点的保留位数，而前边的10代表字段宽。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; python = &apos;%010.1fha&apos;</div><div class="line">&gt;&gt;&gt; print python % 10</div><div class="line">00000010.0ha</div><div class="line"></div><div class="line">&gt;&gt;&gt; python = &apos;%+10.1fha&apos;</div><div class="line">&gt;&gt;&gt; print python % 10</div><div class="line">     +10.0ha</div><div class="line"></div><div class="line">&gt;&gt;&gt; print python % 10</div><div class="line">10.0      ha</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<p>在字段宽和精度前边还可以放置一个标志，这个标志可以是零，加号和减号或者空格，用法见上</p>
+<h3 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h3><h4 id="1、find"><a href="#1、find" class="headerlink" title="1、find"></a>1、find</h4><p>find方法可以在一个较长的字符串中查找子字符串。它返回子串所在位置的最左端索引。如果没有找到则返回-1。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; name.find(&apos;h&apos;)</div><div class="line">0</div><div class="line">&gt;&gt;&gt; name.find(&apos;h&apos;,2)</div><div class="line">4</div><div class="line">&gt;&gt;&gt; name.find(&apos;h&apos;,2,6)</div><div class="line">4</div><div class="line">&gt;&gt;&gt; name.find(&apos;h&apos;,2,5)</div><div class="line">4</div><div class="line">&gt;&gt;&gt; name.find(&apos;h&apos;,2,3)</div><div class="line">-1</div></pre></td></tr></table></figure></p>
+<h4 id="2、join-amp-amp-split"><a href="#2、join-amp-amp-split" class="headerlink" title="2、join &amp;&amp; split"></a>2、join &amp;&amp; split</h4><p>join方法是非常重要的字符串方法，它是split方法的逆方法，用来在队列中添加元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;]</div><div class="line">&gt;&gt;&gt; &apos;+&apos;.join(s)</div><div class="line">&apos;1+2+3&apos;</div></pre></td></tr></table></figure></p>
+<p>注意：需要添加的队列元素都必须是字符串。</p>
+<p>split这是个非常重要的字符串方法，它是join的逆方法，用来将字符串分割成序列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;1+2+3+4&apos;.split(&apos;+&apos;)</div><div class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;]</div><div class="line">&gt;&gt;&gt; &apos;1 2 3 4&apos;.split()</div><div class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;]</div></pre></td></tr></table></figure></p>
+<h4 id="3-lower-amp-amp-upper"><a href="#3-lower-amp-amp-upper" class="headerlink" title="3.lower &amp;&amp; upper"></a>3.lower &amp;&amp; upper</h4><p>lower方法返回字符串的小写字母版。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;A&apos;</div><div class="line">&gt;&gt;&gt; name.lower()</div><div class="line">&apos;a&apos;</div><div class="line">&gt;&gt;&gt; b = name.lower()</div><div class="line">&gt;&gt;&gt; b.upper()</div><div class="line">&apos;A&apos;</div><div class="line"></div><div class="line">S.lower() #小写 </div><div class="line">S.upper() #大写 </div><div class="line">S.swapcase() #大小写互换 </div><div class="line">S.capitalize() #首字母大写</div></pre></td></tr></table></figure></p>
+<h4 id="4-strip"><a href="#4-strip" class="headerlink" title="4.strip"></a>4.strip</h4><p>strip方法返回去除两侧（不包含内部）空格的字符串<br>去两边空格：str.strip()<br>去左空格：str.lstrip()<br>去右空格：str.rstrip()<br>去两边字符串：str.strip(‘d’)，相应的也有lstrip，rstrip</p>
+<h4 id="5-replace-amp-amp-translate"><a href="#5-replace-amp-amp-translate" class="headerlink" title="5.replace &amp;&amp; translate"></a>5.replace &amp;&amp; translate</h4><p>translate方法和replace方法一样，可以替换字符串中的某些部分，但是和前者不同的是，translate方法只处理单个字符。它的优势在于可以同时进行多个替换，有些时候比replace效率高得多。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; name.replace(&apos;h&apos;,&apos;z&apos;)</div><div class="line">&apos;zanszengzui&apos;</div></pre></td></tr></table></figure>
+<p>在使用translate转换前，需要先完成一张转换表。转换表中是以某字符替换某字符的对应关系。因为这个表（事实上是字符串）有多达256个项目，我们还是不要自己写了，用string模块里面的maketrans函数就行了。</p>
+<p>maketrans函数接收两个参数：两个等长的字符串，表示第一个字符串中的每个字符都用第二个字符串中相同位置的字符替换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; from string import maketrans</div><div class="line">&gt;&gt;&gt; table = maketrans(&apos;cs&apos;, &apos;kz&apos;)</div><div class="line">　　创建这个表后，可以将它用作translate方法的参数，进行字符串的转换：</div><div class="line"></div><div class="line">&gt;&gt;&gt; &apos;this is an incredible test&apos;.translate(table)</div><div class="line">&apos;thiz iz an inkredible tezt&apos;</div><div class="line">translate的第二个参数是可选的，这个参数是用来指定需要删除的字符。</div><div class="line"></div><div class="line">&gt;&gt;&gt; &apos;this is an incredible test&apos;.translate(table, &apos; &apos;)</div><div class="line">&apos;thizizaninkredibletezt&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="6-字符串判断相关"><a href="#6-字符串判断相关" class="headerlink" title="6.字符串判断相关"></a>6.字符串判断相关</h4><p>字符串判断相关<br>是否以start开头：str.startswith(‘start’)<br>是否以end结尾：str.endswith(‘end’)<br>是否全为字母或数字：str.isalnum()<br>是否全字母：str.isalpha()<br>是否全数字：str.isdigit()<br>是否全小写：str.islower()<br>是否全大写：str.isupper()</p>
+<h4 id="7-字符串比较"><a href="#7-字符串比较" class="headerlink" title="7.字符串比较"></a>7.字符串比较</h4><p>cmp方法比较两个对象，并根据结果返回一个整数。cmp(x,y)如果X&lt; Y,返回值是负数 如果X&gt;Y 返回的值为正数。<br>sStr1 = ‘strch’<br>sStr2 = ‘strchr’<br>print cmp(sStr1,sStr2)##-1</p>
+<h3 id="列表，元组，字符串的转换list与tuple"><a href="#列表，元组，字符串的转换list与tuple" class="headerlink" title="列表，元组，字符串的转换list与tuple"></a>列表，元组，字符串的转换list与tuple</h3><p>意义在于元组可以作为一个参数整体使用，而列表不可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; name = &apos;hanshenghui&apos;</div><div class="line">&gt;&gt;&gt; tuple(name)</div><div class="line">(&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;, &apos;h&apos;, &apos;u&apos;, &apos;i&apos;)</div><div class="line">&gt;&gt;&gt; list(name)</div><div class="line">[&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;, &apos;h&apos;, &apos;u&apos;, &apos;i&apos;]</div><div class="line">&gt;&gt;&gt; tuple(list(name))</div><div class="line">(&apos;h&apos;, &apos;a&apos;, &apos;n&apos;, &apos;s&apos;, &apos;h&apos;, &apos;e&apos;, &apos;n&apos;, &apos;g&apos;, &apos;h&apos;, &apos;u&apos;, &apos;i&apos;)</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/18/2016/转-delegate-KVO-Notification选择/" rel="next" title="(转)delegate/KVO/Notification选择">
+                <i class="fa fa-chevron-left"></i> (转)delegate/KVO/Notification选择
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/10/2017/Python基础知识-字典/" rel="prev" title="Python基础知识-字典">
+                Python基础知识-字典 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hanson" />
+          <p class="site-author-name" itemprop="name">Hanson</p>
+          <p class="site-description motion-element" itemprop="description">iOS开发者，python/js爱好者，现在就职业京东金融</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表和元组"><span class="nav-number">1.</span> <span class="nav-text">列表和元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#序列通用操作"><span class="nav-number">1.1.</span> <span class="nav-text">序列通用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引"><span class="nav-number">1.1.1.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分片"><span class="nav-number">1.1.2.</span> <span class="nav-text">分片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相加"><span class="nav-number">1.1.3.</span> <span class="nav-text">相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘法"><span class="nav-number">1.1.4.</span> <span class="nav-text">乘法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成员资格"><span class="nav-number">1.1.5.</span> <span class="nav-text">成员资格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#长度，最大值，最小值"><span class="nav-number">1.1.6.</span> <span class="nav-text">长度，最大值，最小值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表操作"><span class="nav-number">1.2.</span> <span class="nav-text">列表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list与join"><span class="nav-number">1.2.1.</span> <span class="nav-text">list与join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#赋值"><span class="nav-number">1.2.2.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除del"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除del</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分片赋值"><span class="nav-number">1.2.4.</span> <span class="nav-text">分片赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#append追加"><span class="nav-number">1.2.5.</span> <span class="nav-text">append追加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#count统计出现的次数"><span class="nav-number">1.2.6.</span> <span class="nav-text">count统计出现的次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extend"><span class="nav-number">1.2.7.</span> <span class="nav-text">extend</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#index"><span class="nav-number">1.2.8.</span> <span class="nav-text">index</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert"><span class="nav-number">1.2.9.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop"><span class="nav-number">1.2.10.</span> <span class="nav-text">pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#remove"><span class="nav-number">1.2.11.</span> <span class="nav-text">remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse"><span class="nav-number">1.2.12.</span> <span class="nav-text">reverse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">1.2.13.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高级排序"><span class="nav-number">1.2.14.</span> <span class="nav-text">高级排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">2.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串格式化"><span class="nav-number">2.1.</span> <span class="nav-text">字符串格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串方法"><span class="nav-number">2.2.</span> <span class="nav-text">字符串方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、find"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、find</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、join-amp-amp-split"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、join && split</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-lower-amp-amp-upper"><span class="nav-number">2.2.3.</span> <span class="nav-text">3.lower && upper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-strip"><span class="nav-number">2.2.4.</span> <span class="nav-text">4.strip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-replace-amp-amp-translate"><span class="nav-number">2.2.5.</span> <span class="nav-text">5.replace && translate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-字符串判断相关"><span class="nav-number">2.2.6.</span> <span class="nav-text">6.字符串判断相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-字符串比较"><span class="nav-number">2.2.7.</span> <span class="nav-text">7.字符串比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表，元组，字符串的转换list与tuple"><span class="nav-number">2.3.</span> <span class="nav-text">列表，元组，字符串的转换list与tuple</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hanson</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

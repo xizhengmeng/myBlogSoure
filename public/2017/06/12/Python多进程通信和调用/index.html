@@ -1,0 +1,757 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="python多进程通信 这里解决的主要是，如果是启动一个命令行，然后执行一个python脚本，如果有多个python脚本就需要多个命令行程序，这不是很明智的选择，最好的做法是，一个命令行搞定所有的python脚本，这里就涉及到两个问题  如何做到并发 如何在一个文件中添加一个python的执行入口">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多进程通信和调用">
+<meta property="og:url" content="/2017/06/12/Python多进程通信和调用/index.html">
+<meta property="og:site_name" content="Hanson的博客">
+<meta property="og:description" content="python多进程通信 这里解决的主要是，如果是启动一个命令行，然后执行一个python脚本，如果有多个python脚本就需要多个命令行程序，这不是很明智的选择，最好的做法是，一个命令行搞定所有的python脚本，这里就涉及到两个问题  如何做到并发 如何在一个文件中添加一个python的执行入口">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-12T07:16:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python多进程通信和调用">
+<meta name="twitter:description" content="python多进程通信 这里解决的主要是，如果是启动一个命令行，然后执行一个python脚本，如果有多个python脚本就需要多个命令行程序，这不是很明智的选择，最好的做法是，一个命令行搞定所有的python脚本，这里就涉及到两个问题  如何做到并发 如何在一个文件中添加一个python的执行入口">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="/2017/06/12/Python多进程通信和调用/"/>
+
+
+  <title> Python多进程通信和调用 | Hanson的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hanson的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python多进程通信和调用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-12T15:00:31+08:00" content="2017-06-12">
+              2017-06-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="python多进程通信"><a href="#python多进程通信" class="headerlink" title="python多进程通信"></a>python多进程通信</h2><blockquote>
+<p>这里解决的主要是，如果是启动一个命令行，然后执行一个python脚本，如果有多个python脚本就需要多个命令行程序，这不是很明智的选择，最好的做法是，一个命令行搞定所有的python脚本，这里就涉及到两个问题</p>
+<ul>
+<li>如何做到并发</li>
+<li>如何在一个文件中添加一个python的执行入口<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div></pre></td><td class="code"><pre><div class="line">#coding:utf-8</div><div class="line"></div><div class="line">import os,re,time</div><div class="line">import multiprocessing,commands,shutil,subprocess</div><div class="line">from pymongo import MongoClient</div><div class="line"></div><div class="line">lock = multiprocessing.Lock()</div><div class="line"></div><div class="line">def func(name, processName, pipe):</div><div class="line">    p_info = &apos;Process[%s]  hello %s&apos; % (processName, name)</div><div class="line">    print &apos;pipe send: &apos;, p_info</div><div class="line">    pipe.send(p_info)</div><div class="line">    </div><div class="line">    print &apos;sub pid: %d, ppid: %d&apos; % (os.getpid(), os.getppid())</div><div class="line">    time.sleep(0.1)</div><div class="line"></div><div class="line">def serverForPull(name,pipe):</div><div class="line"></div><div class="line">    path = &apos;/Users/jdjr/Desktop/branches.txt&apos;</div><div class="line"></div><div class="line">    while True:</div><div class="line">        time.sleep(3)</div><div class="line">        newpath = &apos;/Users/jdjr/Desktop/gradleDir&apos;</div><div class="line">        if os.path.exists(newpath) == True:</div><div class="line">            os.chdir(&apos;/Users/jdjr/Documents/Build/JDJRAPPAndroid&apos;)</div><div class="line"></div><div class="line">            currentbranch = &apos;&apos;</div><div class="line"></div><div class="line">            branch = os.popen(&apos;git branch&apos;).read()</div><div class="line"></div><div class="line">            lines = branch.split(&apos;\n&apos;)</div><div class="line">            for item in lines:</div><div class="line">                if &apos;*&apos; in item:</div><div class="line">                   currentbranch = item[2:]</div><div class="line"></div><div class="line">            p = subprocess.Popen(&quot;gradle assembleDebug&quot;,shell=True,stdout=subprocess.PIPE)</div><div class="line"></div><div class="line">            indexcount = 0</div><div class="line"></div><div class="line">            returncode = p.poll()</div><div class="line"></div><div class="line">            while returncode is None:</div><div class="line">                  text = p.stdout.readline().strip()</div><div class="line">                  f = open(&apos;/Users/jdjr/Desktop/buildlog.txt&apos;,&apos;a&apos;)</div><div class="line">                  f.write(text)</div><div class="line">                  f.close()</div><div class="line">        </div><div class="line">                  mc = MongoClient(&quot;localhost&quot;,27017)</div><div class="line">                  db = mc.package</div><div class="line">                  post_info = db.index</div><div class="line"></div><div class="line">                  dbs = post_info.find(&#123;&apos;branchname&apos;:currentbranch&#125;)</div><div class="line">                  count = 0</div><div class="line">                  itemc = &#123;&#125;</div><div class="line">                  for itemn in dbs:</div><div class="line">                      itemc = itemn</div><div class="line">                      count = count + 1</div><div class="line"></div><div class="line">                  if count == 0:</div><div class="line">                     post_info.save(&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:indexcount,&apos;time&apos;:0,&apos;lastcount&apos;:0&#125;)</div><div class="line">                  else:</div><div class="line">                     ctime = itemc[&apos;time&apos;]</div><div class="line">                     lastcount = itemc[&apos;lastcount&apos;]</div><div class="line">                     </div><div class="line">                     if &apos;Total time:&apos; in text:</div><div class="line">                         indexnew = text.find(&apos;:&apos;)</div><div class="line">                         newtime = text[indexnew + 1:]</div><div class="line"></div><div class="line">                         post_info.update(&#123;&apos;branchname&apos;:currentbranch&#125;,&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:indexcount,&apos;time&apos;:newtime,&apos;lastcount&apos;:lastcount&#125;)</div><div class="line">                     else:</div><div class="line">                         post_info.update(&#123;&apos;branchname&apos;:currentbranch&#125;,&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:indexcount,&apos;time&apos;:ctime,&apos;lastcount&apos;:lastcount&#125;)</div><div class="line"></div><div class="line"></div><div class="line">                     if &apos;BUILD SUCCESSFUL&apos; in text:</div><div class="line">                         post_info.update(&#123;&apos;branchname&apos;:currentbranch&#125;,&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:0,&apos;time&apos;:ctime,&apos;lastcount&apos;:indexcount&#125;)</div><div class="line">                     else:</div><div class="line">                         post_info.update(&#123;&apos;branchname&apos;:currentbranch&#125;,&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:indexcount,&apos;time&apos;:ctime,&apos;lastcount&apos;:lastcount&#125;)</div><div class="line"></div><div class="line">                  indexcount = indexcount + 1</div><div class="line">        </div><div class="line">                  returncode = p.poll()</div><div class="line">        </div><div class="line">            f1 = open(&apos;/Users/jdjr/Desktop/buildlog.txt&apos;,&apos;r&apos;)</div><div class="line">            texts = f1.read()</div><div class="line">            f1.close()</div><div class="line">            if &apos;BUILD FAILED&apos; in texts:</div><div class="line">                (status, output) = commands.getstatusoutput(&apos;gradle assembleDebug&apos;)</div><div class="line">                f2 = open(&apos;/Users/jdjr/Desktop/buildlog.txt&apos;,&apos;w&apos;)</div><div class="line">                texts = f2.write(output)</div><div class="line">                f2.close()</div><div class="line"></div><div class="line">            shutil.rmtree(newpath)</div><div class="line"></div><div class="line">            time.sleep(2)</div><div class="line"></div><div class="line">            mc = MongoClient(&quot;localhost&quot;,27017)</div><div class="line">            db = mc.package</div><div class="line">            post_info = db.index</div><div class="line"></div><div class="line">            post_info.update(&#123;&apos;branchname&apos;:currentbranch&#125;,&#123;&apos;branchname&apos;:currentbranch,&apos;count&apos;:20,&apos;time&apos;:0,&apos;lastcount&apos;:indexcount&#125;)</div><div class="line"></div><div class="line">        if os.path.exists(path):</div><div class="line">            f1 = open(path,&apos;r&apos;)</div><div class="line">            lists = f1.readlines()</div><div class="line"></div><div class="line">            if len(lists) == 2:</div><div class="line">               dir = lists[0]</div><div class="line">               branch = lists[1]</div><div class="line">               </div><div class="line">               if &apos;JDJRAPPAndroid&apos; in dir:</div><div class="line">                  dir = &apos;/Users/jdjr/Documents/Build/JDJRAPPAndroid&apos;</div><div class="line"></div><div class="line">               if &apos;JDMobileNew&apos; in dir:</div><div class="line">                  dir = &apos;/Users/wxg/Documents/JDMobileNew&apos;</div><div class="line"></div><div class="line">               if len(dir) &gt; 0:</div><div class="line">                   print dir</div><div class="line">              </div><div class="line">                   os.chdir(dir)         </div><div class="line">                   (status, output) = commands.getstatusoutput(&apos;git pull origin %s&apos; % branch)</div><div class="line">                   f1 = open(&apos;/Users/jdjr/Desktop/buildlog.txt&apos;,&apos;r&apos;)</div><div class="line">                   text = f1.read()</div><div class="line">                   f1.close()</div><div class="line"></div><div class="line">                   f1 = open(&apos;/Users/jdjr/Desktop/buildlog.txt&apos;,&apos;w&apos;)</div><div class="line">                   text1 = text + &apos;\n&apos; + output + &apos;%i&apos; % status</div><div class="line">                   f1.write(text1)</div><div class="line">                   f1.close()</div><div class="line"></div><div class="line">                   f2 = open(path,&apos;w&apos;)</div><div class="line">                   f2.write(&apos;&apos;)</div><div class="line">                   f2.close()</div><div class="line"></div><div class="line">            f1.close()</div><div class="line"></div><div class="line">def monitorForBlog(name,pipe):</div><div class="line">    lastTimeStr = &apos;&apos;</div><div class="line">    while True:</div><div class="line">      time.sleep(3)</div><div class="line">      os.chdir(&apos;/Users/jdjr/Documents/Blog/blogsource&apos;)</div><div class="line">      </div><div class="line">#      os.chdir(&apos;/usr/local/var/www&apos;)</div><div class="line"></div><div class="line">      (status, output) = commands.getstatusoutput(&apos;git pull origin blog&apos;)</div><div class="line"></div><div class="line">      (status, output) = commands.getstatusoutput(&apos;git log&apos;)</div><div class="line"></div><div class="line">      f = open(&apos;/Users/jdjr/Documents/Blog/logcommit.txt&apos;,&apos;w&apos;)</div><div class="line">      f.write(output)</div><div class="line">      f.close()</div><div class="line"></div><div class="line">      f1 = open(&apos;/Users/jdjr/Documents/Blog/logcommit.txt&apos;,&apos;r&apos;)</div><div class="line">      lines = f1.readlines()</div><div class="line">      firstline = lines[0]</div><div class="line">      f1.close()</div><div class="line"></div><div class="line">      if lastTimeStr != firstline:</div><div class="line">          print &apos;推送一次博客&apos;</div><div class="line">          sourcepath = &apos;/Users/jdjr/Documents/Blog/blog/source&apos;</div><div class="line">          </div><div class="line">          if os.path.exists(sourcepath):</div><div class="line">             shutil.rmtree(sourcepath)</div><div class="line">          </div><div class="line">          shutil.copytree(&apos;/Users/jdjr/Documents/Blog/blogsource/source&apos;,&apos;/Users/jdjr/Documents/Blog/blog/source&apos;)</div><div class="line"></div><div class="line">          os.chdir(&apos;/Users/jdjr/Documents/Blog/blog&apos;)</div><div class="line"></div><div class="line">#          os.popen(&apos;hexo clean&apos;)</div><div class="line">          os.system(&apos;hexo clean&apos;)</div><div class="line">          os.system(&apos;hexo g&apos;)</div><div class="line">          </div><div class="line">          filepath = &apos;/usr/local/var/www&apos;</div><div class="line">          if os.path.exists(filepath):</div><div class="line">             shutil.rmtree(filepath)</div><div class="line"></div><div class="line">          publicfile = &apos;/Users/jdjr/Documents/Blog/blog/public&apos;</div><div class="line">          while not os.path.exists(publicfile):</div><div class="line">                time.sleep(1)</div><div class="line">#                print &apos;not exist&apos;</div><div class="line"></div><div class="line">          shutil.move(publicfile,filepath)</div><div class="line">          </div><div class="line">          lastTimeStr = firstline</div><div class="line">          print lastTimeStr</div><div class="line"></div><div class="line"></div><div class="line">def main():</div><div class="line">    print &apos;main pid: %d, ppid: %d&apos; % (os.getpid(), os.getppid())</div><div class="line">    </div><div class="line">    # 注意： 此处是Pipe来自multiprocessing.Pipe(), 其来源于 multiprocessing.connection import Pipe</div><div class="line">    pipe_parent, pipe_child = multiprocessing.Pipe(duplex=False)</div><div class="line">    </div><div class="line">    processList = []</div><div class="line">#    for i in xrange(4):</div><div class="line">#    pro = multiprocessing.Process(target=func, args=(&apos;ceshi&apos;, &apos;Process-&apos; + str(10), pipe_child))</div><div class="line">#    pro.start()</div><div class="line">#    processList.append(pro)</div><div class="line">#    </div><div class="line">#    pro1 = multiprocessing.Process(target=func1, args=(&apos;waha&apos;,pipe_child))</div><div class="line">#    pro1.start()</div><div class="line">#    processList.append(pro1)</div><div class="line">#    </div><div class="line">#    pro2 = multiprocessing.Process(target=func2, args=(&apos;heihei&apos;,pipe_child))</div><div class="line">#    pro2.start()</div><div class="line">#    processList.append(pro2)</div><div class="line"></div><div class="line">    pro3 = multiprocessing.Process(target=serverForPull, args=(&apos;heihei&apos;,pipe_child))</div><div class="line">    pro3.start()</div><div class="line">    processList.append(pro3)</div><div class="line"></div><div class="line">    pro4 = multiprocessing.Process(target=monitorForBlog, args=(&apos;heihei&apos;,pipe_child))</div><div class="line">    pro4.start()</div><div class="line">    processList.append(pro4)</div><div class="line">    </div><div class="line">    for pro in processList:</div><div class="line">        pro.join()      # 在此处阻塞子进程，可实现异步执行效果，直至子进程全部完成后再继续执行父进程</div><div class="line">    </div><div class="line">    pipe_child.send(None)   # 此处等全部子进程执行完成后，输入&apos;None&apos;标记，表示Pipe结束接收任务，可以退出</div><div class="line"></div><div class="line">    while pipe_parent:</div><div class="line">          p_info = pipe_parent.recv()</div><div class="line">          print &apos;pipe get: &apos;, p_info</div><div class="line">        </div><div class="line">          if not p_info:      # 如果接收到了&apos;None&apos;标记，退出Pipe</div><div class="line">             print &apos;pipe get:  None, then exit out.&apos;</div><div class="line">             break</div><div class="line"></div><div class="line"># 测试</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    main()</div><div class="line">    print(&apos;end.&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/25/2017/mac下使用virtualbox安装win7以及设置共享文件/" rel="next" title="mac下使用virtualbox安装win7以及设置共享文件">
+                <i class="fa fa-chevron-left"></i> mac下使用virtualbox安装win7以及设置共享文件
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/12/利用hexo搭建团队博客系统/" rel="prev" title="利用hexo搭建团队博客系统">
+                利用hexo搭建团队博客系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hanson" />
+          <p class="site-author-name" itemprop="name">Hanson</p>
+          <p class="site-description motion-element" itemprop="description">iOS开发者，python/js爱好者，现在就职业京东金融</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python多进程通信"><span class="nav-number">1.</span> <span class="nav-text">python多进程通信</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hanson</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

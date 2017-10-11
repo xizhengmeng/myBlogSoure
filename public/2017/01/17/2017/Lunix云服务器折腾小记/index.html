@@ -1,0 +1,796 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Lunix," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="Mac登录云服务器1ssh root@127.987.883.888 这样再输入密码我们就进入了我们的服务器的命令行界面，这里执行的命令行与本机是一致的，不过你看到的是你服务器的一些情况 文件的上传和下载 上传1scp ceshi.txt root@127.987.883.888:~   这样文件会被传输到你的用户名下的文件夹下  下载1scp root@127.987.883.888:~／ces">
+<meta name="keywords" content="Lunix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lunix云服务器折腾小记">
+<meta property="og:url" content="/2017/01/17/2017/Lunix云服务器折腾小记/index.html">
+<meta property="og:site_name" content="Hanson的博客">
+<meta property="og:description" content="Mac登录云服务器1ssh root@127.987.883.888 这样再输入密码我们就进入了我们的服务器的命令行界面，这里执行的命令行与本机是一致的，不过你看到的是你服务器的一些情况 文件的上传和下载 上传1scp ceshi.txt root@127.987.883.888:~   这样文件会被传输到你的用户名下的文件夹下  下载1scp root@127.987.883.888:~／ces">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-08T01:46:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lunix云服务器折腾小记">
+<meta name="twitter:description" content="Mac登录云服务器1ssh root@127.987.883.888 这样再输入密码我们就进入了我们的服务器的命令行界面，这里执行的命令行与本机是一致的，不过你看到的是你服务器的一些情况 文件的上传和下载 上传1scp ceshi.txt root@127.987.883.888:~   这样文件会被传输到你的用户名下的文件夹下  下载1scp root@127.987.883.888:~／ces">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="/2017/01/17/2017/Lunix云服务器折腾小记/"/>
+
+
+  <title> Lunix云服务器折腾小记 | Hanson的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hanson的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Lunix云服务器折腾小记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-17T17:33:07+08:00" content="2017-01-17">
+              2017-01-17
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Mac登录云服务器"><a href="#Mac登录云服务器" class="headerlink" title="Mac登录云服务器"></a>Mac登录云服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh root@127.987.883.888</div></pre></td></tr></table></figure>
+<p>这样再输入密码我们就进入了我们的服务器的命令行界面，这里执行的命令行与本机是一致的，不过你看到的是你服务器的一些情况</p>
+<h3 id="文件的上传和下载"><a href="#文件的上传和下载" class="headerlink" title="文件的上传和下载"></a>文件的上传和下载</h3><ul>
+<li>上传<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp ceshi.txt root@127.987.883.888:~</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样文件会被传输到你的用户名下的文件夹下</p>
+<ul>
+<li>下载<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp root@127.987.883.888:~／ceshi.txt ceshi.txt</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="apache安装"><a href="#apache安装" class="headerlink" title="apache安装"></a>apache安装</h3><p>-1. 运行 Terminal，输入命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh username@ip，然后输入密码。</div></pre></td></tr></table></figure></p>
+<ol>
+<li><p>安装 Apache 软件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install httpd</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置 Apache 在服务器启动时运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --levels 235 httpd on</div></pre></td></tr></table></figure>
+</li>
+<li><p>在 Apache 配置文件中配置域名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/httpd/conf/httpd.conf，找到 ServerName ，添加“域名:80”，保存并退出。</div></pre></td></tr></table></figure>
+</li>
+<li><p>重启 Apache：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service httpd restart</div></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器中访问第4步配置的域名，如果出现“Apache 2 Test Page powered by CentOS”的页面，说明配置成功。</p>
+</li>
+</ol>
+<h3 id="django安装"><a href="#django安装" class="headerlink" title="django安装"></a>django安装</h3><ul>
+<li><p>安装工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install setuptools</div></pre></td></tr></table></figure>
+</li>
+<li><p>pip安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install Django</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="重新格式化云服务器之后登录不上怎么办"><a href="#重新格式化云服务器之后登录不上怎么办" class="headerlink" title="重新格式化云服务器之后登录不上怎么办"></a>重新格式化云服务器之后登录不上怎么办</h3><p>将本地的./ssh文件夹中的know_hosts里边对应的ip的记录删除掉，重新生成</p>
+<h3 id="lunix中的复制文件以及文件夹"><a href="#lunix中的复制文件以及文件夹" class="headerlink" title="lunix中的复制文件以及文件夹"></a>lunix中的复制文件以及文件夹</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp -r xxx xxx</div></pre></td></tr></table></figure>
+<p>-r代表我们复制其中的所有文件以及文件夹</p>
+<h3 id="lunix删除文件"><a href="#lunix删除文件" class="headerlink" title="lunix删除文件"></a>lunix删除文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf xxx</div></pre></td></tr></table></figure>
+<h3 id="在python-的django服务不可用"><a href="#在python-的django服务不可用" class="headerlink" title="在python 的django服务不可用"></a>在python 的django服务不可用</h3><p>查看</p>
+<h3 id="lunix升级python"><a href="#lunix升级python" class="headerlink" title="lunix升级python"></a>lunix升级python</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">首先下载源tar包</div><div class="line"></div><div class="line">　　可利用linux自带下载工具wget下载，如下所示：</div><div class="line"></div><div class="line">1# wget http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz</div><div class="line">　　下载完成后到下载目录下，解压</div><div class="line"></div><div class="line">1	tar -zxvf Python-2.7.3.tgz</div><div class="line">2	</div><div class="line">　　进入解压缩后的文件夹</div><div class="line"></div><div class="line">1	cd Python-2.7.3</div><div class="line">　　在编译前先在/usr/local建一个文件夹python27（作为python的安装路径，以免覆盖老的版本）</div><div class="line"></div><div class="line">1	mkdir /usr/local/python27</div><div class="line">　　在解压缩后的目录下编译安装</div><div class="line"></div><div class="line">1	./configure --prefix=/usr/local/python27</div><div class="line">2	make</div><div class="line">3	make install</div><div class="line">　　此时没有覆盖老版本，再将原来/usr/bin/python链接改为别的名字</div><div class="line"></div><div class="line">1	mv /usr/bin/python /usr/bin/python_old</div><div class="line">　　再建立新版本python的链接</div><div class="line"></div><div class="line">1</div><div class="line">ln -s /usr/local/python27/bin/python2.7 </div><div class="line">　　这个时候输入</div><div class="line"></div><div class="line">1	python</div><div class="line">　　就会显示出python的新版本信息</div><div class="line"></div><div class="line">1	Python 2.7.3 (default, Sep 29 2013, 11:05:02)</div><div class="line">2	[GCC 4.1.2 20080704 (Red Hat 4.1.2-54)] on linux2</div><div class="line">3	Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</div><div class="line">4	&gt;&gt;&gt;</div><div class="line">修改YUM   /usr/bin/yum</div><div class="line"></div><div class="line">文件让yum能正常的工作：改成上面我们修改的PYTHON 2.6.6的名字</div></pre></td></tr></table></figure>
+<blockquote>
+<p>lunix解压命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">1、*.tar 用 tar -xvf 解压</div><div class="line"></div><div class="line">2、*.gz 用 gzip -d或者gunzip 解压</div><div class="line"></div><div class="line">3、*.tar.gz和*.tgz 用 tar -xzf 解压</div><div class="line"></div><div class="line">4、*.bz2 用 bzip2 -d或者用bunzip2 解压</div><div class="line"></div><div class="line">5、*.tar.bz2用tar -xjf 解压</div><div class="line"></div><div class="line">6、*.Z 用 uncompress 解压</div><div class="line"></div><div class="line">7、*.tar.Z 用tar -xZf 解压</div><div class="line"></div><div class="line">8、*.rar 用 unrar e解压</div><div class="line"></div><div class="line">9、*.zip 用 unzip 解压</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="安装apex"><a href="#安装apex" class="headerlink" title="安装apex"></a>安装apex</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">lunix 安装apxs扩展</div><div class="line"></div><div class="line">好像命令行安装的，自带了这个模块，手动编译的apache，同样需要手动编译这个模块，编译的时候可能会遇到这个错误：mod_wsgi.c Python.h：没有那个文件或目录,，解决方法：yum install python-devel，安装apache的apxs扩展。</div><div class="line">python 2.7 No module named ‘zlib&apos;</div><div class="line"></div><div class="line">yum -y install zlib-devel openssl-devel</div><div class="line">cd /wls/softwares/Python-2.7.10</div><div class="line">./configure --prefix=/usr/local/python27 make make install</div><div class="line"></div><div class="line">pip是python的包管理工具，我们通过pip来安装python所需要的一些模块，当然如果你有多版本存在，可能需要将pip这个模块copy到对应的python版本下边</div><div class="line"></div><div class="line">在安装   Linux 系统是顺便把apache 服务装好了 ，这时这是装了一个服务不能进行二次开发，</div><div class="line"></div><div class="line">所以很多的开发工具和文件在apache下找不到，比如模块编译工具apxs ，这时就要求安装 开发包，</div><div class="line"></div><div class="line"></div><div class="line">命令 rpm -ql httpd-devel   ，然后会在  usr/local/下面多出个 apache2文件夹，里面有不少开发需要的文件。</div><div class="line">如果提示没有apxs，那就先yum install httpd-devel</div></pre></td></tr></table></figure>
+<h3 id="lunix-安装git"><a href="#lunix-安装git" class="headerlink" title="lunix 安装git"></a>lunix 安装git</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">1.2 CentOS6.6下</div><div class="line"></div><div class="line">在CentOS5的时代，由于yum源中没有git，所以需要预先安装一系列的依赖包。但在CentOS6的yum源中已经有git的版本了，可以直接使用yum源进行安装。</div><div class="line"></div><div class="line">$ sudo yum install git</div><div class="line">但是yum源中安装的git版本是1.7.1，太老了，Github等需要的Git版本最低都不能低于1.7.2 。所以我们一般不用上面的方法。而是下载git源码，编译安装。</div><div class="line"></div><div class="line">编译安装的步骤是【4】：</div><div class="line"></div><div class="line">（1）首先先更新系统</div><div class="line"></div><div class="line">sudo yum update</div><div class="line">（2）安装依赖的包</div><div class="line"></div><div class="line">sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker</div><div class="line">（3）下载git源码并解压缩</div><div class="line"></div><div class="line">$ wget https://github.com/git/git/archive/v2.3.0.zip</div><div class="line">$ unzip v2.3.0.zip</div><div class="line">$ cd git-2.3.0</div><div class="line">（4）编译安装</div><div class="line"></div><div class="line">将其安装在“/usr/local/git”目录下。</div><div class="line"></div><div class="line">make prefix=/usr/local/git all</div><div class="line">sudo make prefix=/usr/local/git install</div><div class="line">（5）此时你如果使用git --version 查看git版本的话，发现git仍然是1.7.1版本。这是因为它默认使用了&quot;/usr/bin&quot;下的git。</div><div class="line"></div><div class="line">你可以用下面的命令查看git所在的路径：</div><div class="line"></div><div class="line">$ whereis git</div><div class="line">git: /usr/bin/git /usr/local/git /usr/share/man/man1/git.1.gz</div><div class="line">（6）我们要把编译安装的git路径放到环境变量里，让它替换&quot;/usr/bin&quot;下的git。为此我们可以修改“/etc/profile”文件（或者/etc/bashrc文件）。</div><div class="line"></div><div class="line">sudo vim /etc/profile</div><div class="line">然后在文件的最后一行，添加下面的内容，然后保存退出。</div><div class="line"></div><div class="line">export PATH=/usr/local/git/bin:$PATH</div><div class="line">（7）使用source命令应用修改。</div><div class="line"></div><div class="line">source /etc/profile</div><div class="line"></div><div class="line">（8）然后再次使用git --version 查看git版本，发现输出2.3.0，表明安装成功。</div></pre></td></tr></table></figure>
+<h3 id="django错误"><a href="#django错误" class="headerlink" title="django错误"></a>django错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">DisallowedHost at /</div><div class="line"></div><div class="line">Invalid HTTP_HOST header: &apos;10.211.55.6:8000&apos;. You may need to add u&apos;10.211.55.6&apos; to ALLOWED_HOSTS.</div><div class="line">Request Method:	GET</div><div class="line">Request URL:	http://10.211.55.6:8000/</div><div class="line">Django Version:	1.10.4</div><div class="line">Exception Type:	DisallowedHost</div><div class="line">Exception Value:	</div><div class="line">Invalid HTTP_HOST header: &apos;10.211.55.6:8000&apos;. You may need to add u&apos;10.211.55.6&apos; to ALLOWED_HOSTS.</div><div class="line">Exception Location:	/usr/lib/python2.7/site-packages/django/http/request.py in get_host, line 113</div><div class="line">Python Executable:	/usr/bin/python</div><div class="line">Python Version:</div><div class="line"></div><div class="line">1，以上时我访问请求的时候出现的，原因在于Django框架中的创建的一个项目的时候，</div><div class="line"></div><div class="line">2，跑下这个命令：Python manage.py runserver 10.211.55.5:8000</div><div class="line"></div><div class="line">3，然后在我本机的浏览器中写入上述IP和端口请求过去：http://10.211.55.6:8000</div><div class="line"></div><div class="line">4，于是就出现了最上面的那个问题；</div><div class="line"></div><div class="line">5，于是就去django-admin.py startproject project-name创建的项目中去修改 setting.py 文件：</div><div class="line"></div><div class="line">ALLOWED_HOSTS = [&apos;*&apos;]  ＃在这里请求的host添加了＊</div><div class="line"></div><div class="line"></div><div class="line">6，于是就成功的访问到了Django的项目了；</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Lunix/" rel="tag">#Lunix</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/06/2017/2017年死磕几件事/" rel="next" title="2017年死磕几件事">
+                <i class="fa fa-chevron-left"></i> 2017年死磕几件事
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/10/2017/爬虫系列/" rel="prev" title="爬虫系列">
+                爬虫系列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hanson" />
+          <p class="site-author-name" itemprop="name">Hanson</p>
+          <p class="site-description motion-element" itemprop="description">iOS开发者，python/js爱好者，现在就职业京东金融</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac登录云服务器"><span class="nav-number">1.</span> <span class="nav-text">Mac登录云服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的上传和下载"><span class="nav-number">2.</span> <span class="nav-text">文件的上传和下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apache安装"><span class="nav-number">3.</span> <span class="nav-text">apache安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django安装"><span class="nav-number">4.</span> <span class="nav-text">django安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新格式化云服务器之后登录不上怎么办"><span class="nav-number">5.</span> <span class="nav-text">重新格式化云服务器之后登录不上怎么办</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lunix中的复制文件以及文件夹"><span class="nav-number">6.</span> <span class="nav-text">lunix中的复制文件以及文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lunix删除文件"><span class="nav-number">7.</span> <span class="nav-text">lunix删除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在python-的django服务不可用"><span class="nav-number">8.</span> <span class="nav-text">在python 的django服务不可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lunix升级python"><span class="nav-number">9.</span> <span class="nav-text">lunix升级python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装apex"><span class="nav-number">10.</span> <span class="nav-text">安装apex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lunix-安装git"><span class="nav-number">11.</span> <span class="nav-text">lunix 安装git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django错误"><span class="nav-number">12.</span> <span class="nav-text">django错误</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hanson</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

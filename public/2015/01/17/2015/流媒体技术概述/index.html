@@ -1,0 +1,821 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="流媒体," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="什么是流媒体技术随着现代技术的发展，网络带给人们形式多样的信息，从第一张图片出现在网络上到如今各种形式的网络视频和三维动画，网络让人们的视听觉得到了很大的满足。然而在流媒体技术出现之前，人们必须要先下载这些多媒体内容到本地计算机，在漫长的等待之后（因为受限于带宽，下载通常要花上较长的时间），才可以看到或听到媒体传达的信息。令人欣慰的是，在流媒体技术出现之后，人们便无需再等待媒体完全下载完成了。">
+<meta name="keywords" content="流媒体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="流媒体技术概述">
+<meta property="og:url" content="/2015/01/17/2015/流媒体技术概述/index.html">
+<meta property="og:site_name" content="Hanson的博客">
+<meta property="og:description" content="什么是流媒体技术随着现代技术的发展，网络带给人们形式多样的信息，从第一张图片出现在网络上到如今各种形式的网络视频和三维动画，网络让人们的视听觉得到了很大的满足。然而在流媒体技术出现之前，人们必须要先下载这些多媒体内容到本地计算机，在漫长的等待之后（因为受限于带宽，下载通常要花上较长的时间），才可以看到或听到媒体传达的信息。令人欣慰的是，在流媒体技术出现之后，人们便无需再等待媒体完全下载完成了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xrn7f.com1.z0.glb.clouddn.com/16-7-17/76269153.jpg">
+<meta property="og:updated_time" content="2016-11-09T07:38:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="流媒体技术概述">
+<meta name="twitter:description" content="什么是流媒体技术随着现代技术的发展，网络带给人们形式多样的信息，从第一张图片出现在网络上到如今各种形式的网络视频和三维动画，网络让人们的视听觉得到了很大的满足。然而在流媒体技术出现之前，人们必须要先下载这些多媒体内容到本地计算机，在漫长的等待之后（因为受限于带宽，下载通常要花上较长的时间），才可以看到或听到媒体传达的信息。令人欣慰的是，在流媒体技术出现之后，人们便无需再等待媒体完全下载完成了。">
+<meta name="twitter:image" content="http://7xrn7f.com1.z0.glb.clouddn.com/16-7-17/76269153.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="/2015/01/17/2015/流媒体技术概述/"/>
+
+
+  <title> 流媒体技术概述 | Hanson的博客 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hanson的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                流媒体技术概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-01-17T14:05:59+08:00" content="2015-01-17">
+              2015-01-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/基础/" itemprop="url" rel="index">
+                    <span itemprop="name">基础</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是流媒体技术"><a href="#什么是流媒体技术" class="headerlink" title="什么是流媒体技术"></a>什么是流媒体技术</h2><p>随着现代技术的发展，网络带给人们形式多样的信息，从第一张图片出现在网络上到如今各种形式的网络视频和三维动画，网络让人们的视听觉得到了很大的满足。然而在流媒体技术出现之前，人们必须要先下载这些多媒体内容到本地计算机，在漫长的等待之后（因为受限于带宽，下载通常要花上较长的时间），才可以看到或听到媒体传达的信息。令人欣慰的是，在流媒体技术出现之后，人们便无需再等待媒体完全下载完成了。<br><a id="more"></a><br>流媒体就是指采用流式传输技术在网络上连续实时播放的媒体格式，如音频、视频或多媒体文件。流媒体技术也称流式媒体技术.所谓流媒体技术就是把连续的影像和声音信息经过压缩处理后放上网站服务器,由视频服务器向用户计算机顺序或实时地传送各个压缩包，让用户一边下载一边观看、收听，而不要等整个压缩文件下载到自己的计算机上才可以观看的网络传输技术。该技术先在使用者端的计算机上创建一个缓冲区，在播放前预先下一段数据作为缓冲，在网路实际连线速度小于播放所耗的速度时，播放程序就会取用一小段缓冲区内的数据，这样可以避免播放的中断，也使得播放品质得以保证。</p>
+<h2 id="流媒体技术的应用分类"><a href="#流媒体技术的应用分类" class="headerlink" title="流媒体技术的应用分类"></a>流媒体技术的应用分类</h2><p>流媒体应用形式可以简单分为3类：点播型应用、直播型应用和会议型应用。</p>
+<ul>
+<li>（1）点播型应用。点播型应用中，一般点播内容存放在服务器上，根据需要进行发布。在同一时间可多点点播相同或不同的节目，即多个终端可在不同的地点、不同的时刻，实时、交互式地点播同一流文件，用户可以通过门户查看和选择内容进行点播。根据用户的需要，点播过程中还可以实现播放、停止、暂停、快进、后退等功能。</li>
+<li>（2）直播型应用。直播服务模式下，用户只能观看播放的内容，无法进行控制。</li>
+<li>（3）会议型应用。会议型应用类似于直播型应用，但是两者有不同的要求，如双向通信等。这对一般双方都要有包括媒体采集的硬件和软件，还有流传输技术。会议型的应用有时候不需要很高的音/视频质量。</li>
+<li>（4）视频广播，是点播的扩展，把节目源组织成频道，以广播的方式提供，用户通过加入频道收看预定好的节目</li>
+<li>(5)视频监视</li>
+<li>(6)音乐播放/在线电台</li>
+<li>(7)电视上网<h2 id="流媒体技术原理"><a href="#流媒体技术原理" class="headerlink" title="流媒体技术原理"></a>流媒体技术原理</h2>如果将文件传输看作是一次接水的过程，过去的传输方式就像是对用户做了一个规定，必须等到一桶水接满才能使用它，这个等待的时间自然要受到水流量大小和桶的大小的影响。而流式传输则是，打开水头龙，等待一小会儿，水就会源源不断地流出来，而且可以随接随用，因此，不管水流量的大小，也不管桶的大小，用户都可以随时用上水。从这个意义上看，流媒体这个词是非常形象的。<br>流式传输技术又分两种，一种是顺序流式传输，另一种是实时流式传输。<h3 id="顺序流式传输"><a href="#顺序流式传输" class="headerlink" title="顺序流式传输"></a>顺序流式传输</h3>顺序流式传输是顺序下载，在下载文件的同时用户可以观看，但是，用户的观看与服务器上的传输并不是同步进行的，用户是在一段延时后才能看到服务器上传出来的信息，或者说用户看到的总是服务器在若干时间以前传出来的信息。在这过程中，用户只能观看已下载的那部分，而不能要求跳到还未下载的部分。顺序流式传输比较适合高质量的短片段，因为它可以较好地保证节目播放的最终质量。它适合于在网站上发布的供用户点播的音视频节目。<br>对通过调制解调器发布的短片段，顺序流式传输很实用，它允许用比调制解调器跟高的数据速率创建视频片段，尽管有延迟毕竟可让你发布高质量的视频片段。<br>顺序流式文件是放在标准HTTP或FTP服务器上，易管理基本上与防火墙无关，顺序流式传播不适合长片段和有随机访问要求的视频，如演讲，演说与演示，它不支持现场广播，严格来说，它是一种点播技术。</li>
+</ul>
+<h3 id="实时流式传输"><a href="#实时流式传输" class="headerlink" title="实时流式传输"></a>实时流式传输</h3><p>在实时流式传输中，音视频信息可被实时观看到。在观看过程中用户可快进或后退以观看前面或后面的内容，但是在这种传输方式中，如果网络传输状况不理想，则收到的信号效果比较差。<br>实时流式传输必须匹配连接宽带，意味着以调制解调器速度连接时图像质量较差，而且由于出错丢失的信息被忽略掉，网络拥挤或者出现问题时候，视频质量很差，如欲保证视频质量，顺序流式传输也许更好，实时流式传输需要特定的服务器，如QuickTime Streaming Server/Real Server/Windows Media Server这些服务器允许你对媒体发送进行更多级别的控制，因为而系统设置管理比HTTP服务器更复杂，实时流传输还需要特殊的网络协议，比如RTSP(Real time sreming protocol)或MMS(Microsoft Media Server)这些协议在有防火墙的时候会出现问题，导致用户不能看到一些地点的实时内容。</p>
+<h2 id="流媒体系统的组成"><a href="#流媒体系统的组成" class="headerlink" title="流媒体系统的组成"></a>流媒体系统的组成</h2><p>通常，组成一个完整的流媒体系统包括以下5个部分：</p>
+<p>　　①一种用于创建、捕捉和编辑多媒体数据，形成流媒体格式的编码工具;</p>
+<p>　　②流媒体数据;</p>
+<p>　　③一个存放和控制流媒体数据的服务器;</p>
+<p>　　④要有适合多媒体传输协议甚至是实时传输协议的网络;</p>
+<p>　　⑤供客户端浏览流媒体文件的播放器。
+　　</p>
+<h2 id="流媒体传输的基本原理"><a href="#流媒体传输的基本原理" class="headerlink" title="流媒体传输的基本原理"></a>流媒体传输的基本原理</h2><p>流媒体传输的基本原理  流媒体服务器架设  流媒体技术也称为流式传输技术，是指在网络上按时间先后次序传输和播放的连续音、视频数据流。随着网络速度的提高，以流媒体技术为核心的视频点播、在线电视、远程培训等业务开展得越来越广泛。本章主要介绍流媒体技术的基础知识、流媒体服务器的安装、运行、配置和使用等内容。  23.1  流媒体技术基础  流媒体是指利用流式传输技术传送的音频、视频等连续媒体数据，它的核心是串流（Streaming）技术和数据压缩技术，具有连续性、实时性、时序性3个特点，可以使用顺序流式传输和实时流式传输两种传输方式。本节主要介绍有关流媒体的技术基础。  23.1.1  流媒体传输的基本原理 实现流式传输需要使用缓存机制。因为音频或视频数据在网络中是以包的形式传输的，而网络是动态变化的，各个数据包选择的路由可能不尽相同，到达客户端所需的时间也就不一样，有可能会出现先发的数据包却后到。因此，客户端如果按照包到达的次序播放数据，必然会得到不正确的结果。使用缓存机制就可以解决这个问题，客户端收到数据包后先缓存起来，播放器再从缓存中按次序读取数据。  使用缓存机制还可以解决停顿问题。网络由于某种原因经常会有一些突发流量，此时会造成暂时的拥塞，使流数据不能实时到达客户端，客户端的播放就会出现停顿。如果采用了缓存机制，暂时的网络阻塞并不会影响播放效果，因为播放器可以读取以前缓存的数据。等网络正常后，新的流数据将会继续添加到缓存中。  虽然音频或视频等流数据容量非常大，但播放流数据时所需的缓存容量并不需要很大，因为缓存可以使用环形链表结构来存储数据，已经播放的内容可以马上丢弃，缓存可以腾出空间用于存放后续尚未播放的内容。  当传输流数据时，需要使用合适的传输协议。TCP虽然是一种可靠的传输协议，但由于需要的开销较多，并不适合传输实时性要求很高的流数据。因此，在实际的流式传输方案中，TCP协议一般用来传输控制信息，而实时的音视频数据则是用效率更高的RTP/UDP等协议来传输。流媒体传输的基本原理如图23-1所示。  在图23-1中，Web服务器只是为用户提供了使用流媒体的操作界面。客户机上的用户在浏览器中选中播放某一流媒体资源后，Web服务器把有关这一资源的流媒体服务器地址、资源路径及编码类型等信息提供给客户端，于是客户端就启动了流媒体播放器，与流媒体服务器进行连接。<br><img src="http://7xrn7f.com1.z0.glb.clouddn.com/16-7-17/76269153.jpg" alt=""><br>客户端的流媒体播放器与流媒体服务器之间交换控制信息时使用的是RTSP协议，它是基于TCP协议的一种应用层协议，默认使用的是554端口。RTSP协议提供了有关流媒体播放、快进、快倒、暂停及录制等操作的命令和方法。通过RTSP协议，客户端向服务器提出了播放某一流媒体资源的请求，服务器响应了这个请求后，就可以把流媒体数据传输给客户端了。</p>
+<p>需要注意的是，RTSP协议并不具备传输流媒体数据的功能，承担流媒体数据传输任务的是另一种基于UDP的RTP协议，但在RTP协议传输流媒体数据的过程中，RTSP连接是一直存在的，并且控制着流媒体数据的传输。一旦流媒体数据到达了客户端，流媒体播放器就可以播放输出了。流媒体的数据和控制信息使用不同的协议和连接时，还可以带来一个好处，就是播放流媒体的客户机和控制流媒体播放的客户机可以是不同的计算机。</p>
+<h3 id="实时流媒体协议RTSP"><a href="#实时流媒体协议RTSP" class="headerlink" title="实时流媒体协议RTSP"></a>实时流媒体协议RTSP</h3><p>RTSP（Real Time Streaming Protocol，实时流媒体协议）是由Real Network和Netscape共同提出的一种应用层协议，它定义了如何在IP网络上有效地传输流媒体数据。RTSP提供了一种机制，使音频、视频等数据可以按照需要进行实时传输，并且可以实施诸如暂停、快进等控制。源数据可以是存储的文件，也可以是现场数据的反馈。RTSP协议本身并不传输数据，数据的传输是通过基于UDP协议的RTP协议来完成的。</p>
+<p>RTSP协议与HTTP协议有点类似，通信双方是通过请求消息和回应消息进行交互的。请求消息的格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;请求方法&gt;  &lt;URI&gt;  &lt;RTSP版本&gt; </div><div class="line">[消息头]  </div><div class="line">CR/ LF  </div><div class="line">[消息体]</div></pre></td></tr></table></figure></p>
+<p>其中，请求方法包括PLAY、DESCRIBE等，可以通过OPTION方法得到对方所支持的其他方法名称。URI是对方的地址，例如：rtsp://192.168.0.1。”RTSP版本”一般都是RTSP/1.0。每一行的最后都是回车换行符CR/LF，消息头和消息体之间要有一个空行。回应消息格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;RTSP版本&gt; &lt;状态码&gt; &lt;解释&gt; </div><div class="line">[消息头]  </div><div class="line">CR/LF  </div><div class="line">[消息体]</div></pre></td></tr></table></figure></p>
+<p>回应消息的格式规定与请求消息类似。其中状态码是一个3位数，后面跟随着解释文本，例如，200表示成功。</p>
+<p>HTTP协议是单向的，即只能是客户端提出请求，服务端给予回应，而使用RTSP时，客户机和服务器都可以发出请求，双方都可以对收到的请求进行应答，即RTSP可以是双向的。一个典型的RSTP交互过程如下所示，其中C表示RTSP客户端，S表示RTSP服务端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">C-&gt;S:    OPTION request     //客户端通过OPTION方法询问</div><div class="line">服务端支持哪些方法  </div><div class="line">S-&gt;C:    OPTION response    //服务端进行回应，提供了所支持方法的名称  </div><div class="line"> </div><div class="line">C-&gt;S:    DESCRIBE request   //客户端通过DESCRIBE方法查询服务</div><div class="line">端媒体的初始化描述</div><div class="line">//信息  </div><div class="line">S-&gt;C:    DESCRIBE response  //服务端回应媒体初始化描述信息，</div><div class="line">采用的是sdp会话描述</div><div class="line">//格式  </div><div class="line"> </div><div class="line">C-&gt;S:    SETUP request      //客户端通过SETUP方法设置会话</div><div class="line">的属性、传输模式等参数，</div><div class="line">//并请求建立会话  </div><div class="line">S-&gt;C:    SETUP response         //服务端响应回话请求，与客</div><div class="line">户端建立会话，并返回会话标识</div><div class="line">//符及其他相关信息  </div><div class="line"> </div><div class="line">C-&gt;S:    PLAY request       //客户端通过PLAY方法请求播放某一多媒体资源  </div><div class="line">S-&gt;C:    PLAY response      //服务器回应请求，开始发送流数据  </div><div class="line"> </div><div class="line">S-&gt;C:    …                      //此时，RTSP通过其他协议发送流媒体数据  </div><div class="line"> </div><div class="line">C-&gt;S:    TEARDOWN request   //客户端通过TEARDOWN方法请求关闭会话  </div><div class="line">S-&gt;C:    TEARDOWN response      //服务器回应请求，会话关闭，交互结束</div></pre></td></tr></table></figure></p>
+<p>实际应用中，RTCP的交互过程可能和以上过程会有区别，但基本的流程是一样的。</p>
+<p>说明：还有一种常见的流媒体协议是由Microsoft公司开发的MMS协议，但Microsoft公司没有公开该协议。</p>
+<h2 id="流媒体播放方式"><a href="#流媒体播放方式" class="headerlink" title="流媒体播放方式"></a>流媒体播放方式</h2><p>流媒体服务器可以提供多种播放方式，它可以根据用户的要求，为每个用户独立地传送流数据，实现VOD（Video On Demand）的功能；也可以为多个用户同时传送流数据，实现在线电视或现场直播的功能。下面介绍一下这些播放方式的特点。</p>
+<h3 id="单播方式"><a href="#单播方式" class="headerlink" title="单播方式"></a>单播方式</h3><p>当采用单播方式时，每个客户端都与流媒体服务器建立了一个单独的数据通道，从服务器发送的每个数据包都只能传给一台客户机。对用户来说，单播方式可以满足自己的个性化要求，可以根据需要随时使用停止、暂停、快进等控制功能。但对服务器还说，单播方式无疑会带来沉重的负担，因为它必须为每个用户提供单独的查询，向每个用户发送所申请的数据包复制。当用户数很多时，对网络速度、服务器性能的要求都很高。如果这些性能不能满足要求，就会造成播放停顿，甚至停止播放。</p>
+<h3 id="广播方式"><a href="#广播方式" class="headerlink" title="广播方式"></a>广播方式</h3><p>承载流数据的网络报文还可以使用广播方式发送给子网上所有的用户，此时，所有的用户同时接受一样的流数据，因此，服务器只需要发送一份数据复制就可以为子网上所有的用户服务，大大减轻了服务器的负担。但此时，客户机只能被动地接受流数据，而不能控制流。也就是说，用户不能暂停、快进或后退所播放的内容，而且，用户也不能对节目进行选择。</p>
+<h3 id="组播方式"><a href="#组播方式" class="headerlink" title="组播方式"></a>组播方式</h3><p>单播方式虽然用户提供了最大的灵活性，但网络和服务器的负担很重。广播方式虽然可以减轻服务器的负担，但用户不能选择播放内容，只能被动地接受流数据。组播吸取了上述两种传输方式的长处，可以将数据包复制发送给需要的多个客户，而不是像单播方式那样复制数据包的多个文件到网络上，也不是像广播方式那样将数据包发送给那些不需要的客户，保证数据包占用最小的网络带宽。当然，组播方式需要在具有组播能力的网络上使用。</p>
+<h2 id="流媒体关键技术"><a href="#流媒体关键技术" class="headerlink" title="流媒体关键技术"></a>流媒体关键技术</h2><p>流媒体有三个关键技术:数据压缩/解压缩技术，流媒体网络传输和媒体文件在流式传输中的版权保护问题，其中数据压缩和解压缩技术优势重中之重，核心技术。方发送确认嘻嘻，发送发收到确认嘻嘻猴才继续</p>
+<h3 id="流媒体制作技术方面解决的问题"><a href="#流媒体制作技术方面解决的问题" class="headerlink" title="流媒体制作技术方面解决的问题"></a>流媒体制作技术方面解决的问题</h3><p>在网络中进行流媒体传输，所传输的文件必须制作成适合流媒体传输的流媒体格式文件，由于通常格式存储的多媒体文件容量十分大，传输比较困难，另外流媒体也不能按流媒体传输的协议进行传输，所以必须对问津进行预处理，将文件压缩成流媒体格式文件，这里要注意两点：1，选用合适的算法在质量与体积之间找到平衡，2，需要向文件中添加流式信息。</p>
+<h3 id="流媒体传输方面需要解决的问题"><a href="#流媒体传输方面需要解决的问题" class="headerlink" title="流媒体传输方面需要解决的问题"></a>流媒体传输方面需要解决的问题</h3><p>流媒体传输需要和实施的传输协议，目前文件初三书大部分是建立在TCP协议上的，也有一些以ftp传输协议方式进行传输，但采用这些传输方法都不能实现实时的方式传输，随着流媒体技术的深入研究，目前成熟的流媒体传输一般都采用建立在UDP协议上的RTP/RTSP实时传输协议。<br>之所选择UDP是因为在传输的可靠性上UDP比TCP有很大的有事，TCP协议中包含了专门的数据传送校验机制，当数据接受方收到数据后将自动向发送确认信息，发送方在接收到确认信息后才继续传送数据，否则将一直处于等待状态，而UDP协议则不同，本身并不做任何校验，由此可以看出TCP协议注重传输质量，而UDP注重传输速度，因此对于传输质量要求不是很高，而对速度要求很高的视音频流媒体文件来说，采用UDP更加合适。</p>
+<h3 id="流媒体的传说过程中需要缓存的支持"><a href="#流媒体的传说过程中需要缓存的支持" class="headerlink" title="流媒体的传说过程中需要缓存的支持"></a>流媒体的传说过程中需要缓存的支持</h3><p>因为internet是以包为单位进行异步传输的，所以多媒体数据在传输过程中被分解为许多的包，由于网络传输的不稳定性，各个包选择的路由不同，所以到达客户端的时间次序可能发生改变，甚至产生丢包现象，为此，必须采用正确的书序，从而必须使用缓存技术来纠正由于数据到达次序发生改变而产生的混乱的问题，利用缓存对到达的数据包进行正确的排序，从而使音频数据能够连续正确的播放，缓存中存储的是一段时间内的数据，数据在缓存中存放的时间是暂时的，缓存中的数据也是动态的，不断更新的，流媒体在播放时不断的读取缓存中的数据进行播放，播放完后该数据立刻被清楚，新的数据将加入缓存，因此播放流媒体文件的时候并不需要占用太大的缓存空间。</p>
+<h2 id="流媒体传输的网络协议"><a href="#流媒体传输的网络协议" class="headerlink" title="流媒体传输的网络协议"></a>流媒体传输的网络协议</h2><p>TCP需要较多的开销，所以不太适合传输实时数据，流式传输一般采用HTTP/TCP(RTCP)传输控制信息，而采用RTP/UDP(RTP)来传输实时声音数据。</p>
+<h3 id="实时传输协议RTP"><a href="#实时传输协议RTP" class="headerlink" title="实时传输协议RTP"></a>实时传输协议RTP</h3><p>这种协议在一对一或一对多的传输情况下工作，其目的是提供时间信息和实现流同步，RTP通常使用UDP来传送数据，当引用程序开始一个RTP会话时将使用两个端口，一个给RTP，一个给RTCP，RTP本身并不能为按顺序传送数据包提供可靠的传送机制，也不提供流量控制或拥塞控制，它依靠RTCP提供这些服务，通常RTP算法并不作为一个独立的网络层来实现，而是作为应用程序代码的一部分。</p>
+<h3 id="实时传输控制协议RTCP"><a href="#实时传输控制协议RTCP" class="headerlink" title="实时传输控制协议RTCP"></a>实时传输控制协议RTCP</h3><p>实时传输控制协议RTCP和RTP一起提供流量控制和拥塞控制服务，在RTP会话期间各参与者周期性的传送RTCP包，RTCP包中含有 已发送的数据包的数量，丢失的数据包数量等统计资料，因此服务器可以利用这些信息动态的改变传输速率，甚至改变有效载荷类型。<br>RTP和RTCP配合使用，能以有效的反馈和最小的开销使传输效率最佳化，因而特别适合传送网上的实时数据。</p>
+<h3 id="实时流协议RTSP"><a href="#实时流协议RTSP" class="headerlink" title="实时流协议RTSP"></a>实时流协议RTSP</h3><p>实时流协议RTSP定义了一对多应用程序如何有效地通过IP网络传送多媒体数据，RTSP的体系结构上位于RTP和RTCP之上，它使用TCP或RTP完成数据传输，HTTP与RTSP相比，HTTP传送HTML超链接文档，而RTSP传送的是多媒体数据，HTTP请求由客户机发出，服务器作出相应，使用RTSP时，客户机与服务器都可以发出请求，即RTSP可以是双向的，点对点的额手机可视通话，必须在手机终端实现RTSP。</p>
+<h2 id="流媒体文件格式"><a href="#流媒体文件格式" class="headerlink" title="流媒体文件格式"></a>流媒体文件格式</h2><p>将多媒体信息进行压缩生成一定格式的文件，这就是媒体压缩格式，而要将这些压缩的文件在IP网上进行实时传输，就需要将这些压缩文件进行必要的处理，分割成很多小块，以方便传输，比如rm，rmvb，asf，这就是媒体流格式，要在网上传播还需要将一定的格式告诉用户这就是媒体的发布格式。</p>
+<h3 id="流式文件格式"><a href="#流式文件格式" class="headerlink" title="流式文件格式"></a>流式文件格式</h3><p>为了减小用户的播放演示和存储空间，实现边下边播，并保证一定的播放质量，就需要对压缩文件进行特殊的处理，添加一些附属信息，如计时，压缩和版权信息，这就是流式文件格式，常见的有如下集中：</p>
+<h4 id="flv"><a href="#flv" class="headerlink" title="flv"></a>flv</h4><p>Flash MX 以前flash中的视频文件导入是一帧一帧变成位图，结果导致文件巨大，限制了它的引用范围，随着Flash MX的退出，macromedia公司开发了属于自己流式视频格式的FLV，这种个试试在sorenson公司的压缩算法的基础上开发出来的，sorenson公司也为MOV格式提供苏犯法。<br>FLV格式不仅可以轻松导入flash中，几百帧的影片两分钟完成导入，同时可以通过rtmp协议从flashcom服务器上流式播出。 </p>
+<h3 id="流媒体文件的压缩格式"><a href="#流媒体文件的压缩格式" class="headerlink" title="流媒体文件的压缩格式"></a>流媒体文件的压缩格式</h3><p>数据压缩技术也是流媒体技术的一项重要内容，由于视频数据的容量往往都非常大，如果不经过压缩或压缩得不够，则不仅会增加服务器的负担，更重要的是会占用大量的网络带宽，影响播放效果。因此如何在保证不影响观看效果或对观看效果影响很小的前提下，最大限度地对流数据进行压缩，是流媒体技术研究的一项重要内容。下面介绍一下几种主流的音视频数据压缩格式。</p>
+<h4 id="1．AVI格式"><a href="#1．AVI格式" class="headerlink" title="1．AVI格式"></a>1．AVI格式</h4><p>AVI（Audio Video Interleave，音频视频交错）是符合RIFF文件规范的数字音频与视频文件格式，由Microsoft公司开发，目前得到了广泛的支持。AVI格式支持256色和RLE压缩，并允许视频和音频交错在一起同步播放。但AVI文件并未限定压缩算法，只是提供了作为控制界面的标准，用不同压缩算法生成的AVI文件，必须要使用相同的解压缩算法才能解压播放。AVI文件主要应用在多媒体光盘上，用来保存电影、电视等各种影像信息。</p>
+<h4 id="2．MPEG格式"><a href="#2．MPEG格式" class="headerlink" title="2．MPEG格式"></a>2．MPEG格式</h4><p>MPEG（Moving Picture Experts Group，动态图像专家组）是运动图像压缩算法的国际标准，已被几乎所有的计算机平台共同支持，它采用有损压缩算法减少运动图像中的冗余信息，同时保证每秒30帧的图像刷新率。MPEG标准包括视频压缩、音频压缩和音视频同步3个部分，MPEG音频最典型的应用就是MP3音频文件，广泛使用的消费类视频产品如VCD、DVD其压缩算法采用的也是MPEG标准。</p>
+<p>MPEG压缩算法是针对运动图像而设计的，其基本思路是把视频图像按时间分段，然后采集并保存每一段的第一帧数据，其余各帧只存储相对第一帧发生变化的部分，从而达到了数据压缩的目的。MPEG采用了两个基本的压缩技术：运动补偿技术（预测编码和插补码）实现了时间上的压缩，变换域（离散余弦变换DCT）技术实现了空间上的压缩。MPEG在保证图像和声音质量的前提下，压缩效率非常高，平均压缩比为50∶1，最高可达200∶1。</p>
+<h4 id="3．RealVideo格式"><a href="#3．RealVideo格式" class="headerlink" title="3．RealVideo格式"></a>3．RealVideo格式</h4><p>RealVideo格式是由Real Networks公司开发的一种流式视频文件格式，包含在Real Media音频视频压缩规范中，其设计目标是在低速率的广域网上实时传输视频影像。RealVideo可以根据网络的传输速度来决定视频数据的压缩比率，从而提高适应能力，充分利用带宽。本章后面介绍的Real Server软件就是由Real Networks公司提供的，使用的就是Real Video格式的视频文件。</p>
+<p>RealVideo格式文件的扩展名有3种，RA是音频文件、RM和RMVB是视频文件。RMVB格式文件具有可变比特率的特性，它在处理较复杂的动态影像时使用较高的采样率，而在处理一般静止画面时则灵活地转换至较低的采样率，从而在不增加文件大小的前提下提高了图像质量。</p>
+<h4 id="4．QuickTime格式"><a href="#4．QuickTime格式" class="headerlink" title="4．QuickTime格式"></a>4．QuickTime格式</h4><p>QuickTime是由Apple公司开发的一种音视频数据压缩格式，得到了Mac OS、Microsoft Windows等主流操作系统平台的支持。QuickTime文件格式提供了150多种视频效果，支持25位彩色，支持RLE、JPEG等领先的集成压缩技术。此外，QuickTime还强化了对Internet应用的支持，并采用一种虚拟现实技术，使用户可以通过鼠标或键盘的交互式控制，观察某一地点周围360度的景像，或者从空间的任何角度观察某一物体。QuickTime以其领先的多媒体技术和跨平台特性、较小的存储空间要求、技术细节的独立性以及系统的高度开放性，得到业界的广泛认可。QuickTime格式文件的扩展是MOV或QT。</p>
+<h4 id="5．ASF和WMV格式"><a href="#5．ASF和WMV格式" class="headerlink" title="5．ASF和WMV格式"></a>5．ASF和WMV格式</h4><p>ASF（Advanced Streaming Format，高级流格式）和WMV是由Microsoft公司推出的一种在Internet上实时传播多媒体数据的技术标准，提供了本地或网络回放、可扩充的媒体类型、部件下载以及可扩展性等功能。ASF的应用平台是Net Show服务器和Net Show播放器。</p>
+<p>WMV也是Microsoft公司推出的一种流媒体格式，它是以ASF为基础，升级扩展后得到的。在同等视频质量下，WMV格式的体积非常小，因此很适合在网上播放和传输。WMV文件一般同时包含视频和音频部分，视频部分使用Windows Media Video编码，而音频部分使用Windows Media Audio编码。音频文件可以独立存在，其扩展名是WMA。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/流媒体/" rel="tag">#流媒体</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/12/15/2014/UIKit系列-UIPikerView-日期选择器/" rel="next" title="UIKit系列-UIPikerView-日期选择器">
+                <i class="fa fa-chevron-left"></i> UIKit系列-UIPikerView-日期选择器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/01/23/2015/iOS中的定时和延时/" rel="prev" title="iOS中的定时和延时">
+                iOS中的定时和延时 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Hanson" />
+          <p class="site-author-name" itemprop="name">Hanson</p>
+          <p class="site-description motion-element" itemprop="description">iOS开发者，python/js爱好者，现在就职业京东金融</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是流媒体技术"><span class="nav-number">1.</span> <span class="nav-text">什么是流媒体技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体技术的应用分类"><span class="nav-number">2.</span> <span class="nav-text">流媒体技术的应用分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体技术原理"><span class="nav-number">3.</span> <span class="nav-text">流媒体技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序流式传输"><span class="nav-number">3.1.</span> <span class="nav-text">顺序流式传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时流式传输"><span class="nav-number">3.2.</span> <span class="nav-text">实时流式传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体系统的组成"><span class="nav-number">4.</span> <span class="nav-text">流媒体系统的组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体传输的基本原理"><span class="nav-number">5.</span> <span class="nav-text">流媒体传输的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实时流媒体协议RTSP"><span class="nav-number">5.1.</span> <span class="nav-text">实时流媒体协议RTSP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体播放方式"><span class="nav-number">6.</span> <span class="nav-text">流媒体播放方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单播方式"><span class="nav-number">6.1.</span> <span class="nav-text">单播方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广播方式"><span class="nav-number">6.2.</span> <span class="nav-text">广播方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组播方式"><span class="nav-number">6.3.</span> <span class="nav-text">组播方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体关键技术"><span class="nav-number">7.</span> <span class="nav-text">流媒体关键技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流媒体制作技术方面解决的问题"><span class="nav-number">7.1.</span> <span class="nav-text">流媒体制作技术方面解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流媒体传输方面需要解决的问题"><span class="nav-number">7.2.</span> <span class="nav-text">流媒体传输方面需要解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流媒体的传说过程中需要缓存的支持"><span class="nav-number">7.3.</span> <span class="nav-text">流媒体的传说过程中需要缓存的支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体传输的网络协议"><span class="nav-number">8.</span> <span class="nav-text">流媒体传输的网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实时传输协议RTP"><span class="nav-number">8.1.</span> <span class="nav-text">实时传输协议RTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时传输控制协议RTCP"><span class="nav-number">8.2.</span> <span class="nav-text">实时传输控制协议RTCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时流协议RTSP"><span class="nav-number">8.3.</span> <span class="nav-text">实时流协议RTSP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流媒体文件格式"><span class="nav-number">9.</span> <span class="nav-text">流媒体文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流式文件格式"><span class="nav-number">9.1.</span> <span class="nav-text">流式文件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flv"><span class="nav-number">9.1.1.</span> <span class="nav-text">flv</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流媒体文件的压缩格式"><span class="nav-number">9.2.</span> <span class="nav-text">流媒体文件的压缩格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1．AVI格式"><span class="nav-number">9.2.1.</span> <span class="nav-text">1．AVI格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2．MPEG格式"><span class="nav-number">9.2.2.</span> <span class="nav-text">2．MPEG格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3．RealVideo格式"><span class="nav-number">9.2.3.</span> <span class="nav-text">3．RealVideo格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．QuickTime格式"><span class="nav-number">9.2.4.</span> <span class="nav-text">4．QuickTime格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5．ASF和WMV格式"><span class="nav-number">9.2.5.</span> <span class="nav-text">5．ASF和WMV格式</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hanson</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
